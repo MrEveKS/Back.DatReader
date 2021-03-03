@@ -14,5 +14,6 @@
     &lt;TestId&gt;xUnit::37112E63-1B7B-473C-8728-11C3DC7A0A1A::net5.0::File.DatReader.Test.DatTimeTest.DatDataReader_Time_Test&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::37112E63-1B7B-473C-8728-11C3DC7A0A1A::net5.0::File.DatReader.Test.ValidationTest.DataCoordinateValidationTest.All_Country_Valid_Name&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::37112E63-1B7B-473C-8728-11C3DC7A0A1A::net5.0::File.DatReader.Test.ValidationTest.DataCoordinateValidationTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::37112E63-1B7B-473C-8728-11C3DC7A0A1A::net5.0::File.DatReader.Test.ValidationTest.DataHeaderValidationTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

@@ -18,7 +18,8 @@ namespace File.DatReader.Test
 		[Fact]
 		public async Task DatDataReader_Time_Test()
 		{
-			var datDataReader = new DatDbData();
+			var datDataReader = DatDbDataSingleton.Current;
+			datDataReader.SkipLock = true;
 
 			for (var index = 0; index < 10; index++)
 			{
