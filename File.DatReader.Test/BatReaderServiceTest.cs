@@ -1,5 +1,4 @@
 using System.IO;
-using System.Threading.Tasks;
 using File.DatReader.Constants;
 using File.DatReader.Services;
 using Xunit;

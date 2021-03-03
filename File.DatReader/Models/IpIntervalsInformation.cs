@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace DatReader
+namespace File.DatReader
 {
 	internal unsafe struct IpIntervalsInformation : IIpIntervalsInformation
 	{

@@ -1,17 +1,16 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Threading.Tasks;
-using DatReader;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace File.DatReader.Test
 {
-    public class DataValidTest
+    public class DatTimeTest
     {
 
 		private readonly ITestOutputHelper _testOutputHelper;
 
-		public DataValidTest(ITestOutputHelper testOutputHelper)
+		public DatTimeTest(ITestOutputHelper testOutputHelper)
 		{
 			_testOutputHelper = testOutputHelper;
 		}
@@ -19,7 +18,7 @@ namespace File.DatReader.Test
 		[Fact]
 		public async Task DatDataReader_Time_Test()
 		{
-			var datDataReader = new DatDataReader();
+			var datDataReader = new DatDbData();
 
 			for (var index = 0; index < 10; index++)
 			{

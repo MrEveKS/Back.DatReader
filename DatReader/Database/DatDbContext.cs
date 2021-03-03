@@ -1,7 +1,7 @@
-﻿using DatReader.Models;
+﻿using DatDbData.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace DatReader.Database
+namespace DatDbData.Database
 {
     public class DatDbContext : CoreDbContext
     {

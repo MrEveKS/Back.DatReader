@@ -1,4 +1,4 @@
-namespace DatReader
+namespace File.DatReader
 {
 	public interface ICoordinateInformation
 	{

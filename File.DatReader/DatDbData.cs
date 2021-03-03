@@ -6,9 +6,9 @@ using File.DatReader.Services;
 
 [assembly: InternalsVisibleTo("File.DatReader.Test")]
 
-namespace DatReader
+namespace File.DatReader
 {
-	public class DatDataReader
+	public class DatDbData
 	{
 		private readonly IBatReaderService _readerService;
 
@@ -18,7 +18,13 @@ namespace DatReader
 
 		private IIpIntervalsInformation[] _ipIntervalsInformations;
 
-		public DatDataReader()
+		public ICoordinateInformation[] CoordinateInformations => _coordinateInformations;
+
+		public IHead Head => _head;
+
+		public IIpIntervalsInformation[] IpIntervalsInformation => _ipIntervalsInformations;
+
+		public DatDbData()
 		{
 			_readerService = new BatReaderService();
 		}

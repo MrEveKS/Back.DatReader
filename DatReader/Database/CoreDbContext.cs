@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DatReader.Database
+namespace DatDbData.Database
 {
     /// <summary>
     /// Base database context

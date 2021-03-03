@@ -1,4 +1,4 @@
-﻿namespace DatReader.Models
+﻿namespace DatDbData.Models
 {
     public class Header
     {
