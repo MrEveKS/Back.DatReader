@@ -2,8 +2,8 @@ using System.IO;
 
 namespace DatReader
 {
-	internal unsafe struct IpIntervalsInformation
-    {
+	internal unsafe struct IpIntervalsInformation : IIpIntervalsInformation
+	{
         private const byte IP_FROM_SIZE = 4;
         private const byte IP_TO_SIZE = 4;
         private const byte LOCATION_INDEX_SIZE = 4;

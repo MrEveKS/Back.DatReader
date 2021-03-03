@@ -1,5 +1,6 @@
 using System.IO;
 using System.Threading.Tasks;
+using File.DatReader.Constants;
 using File.DatReader.Services;
 using Xunit;
 
@@ -15,10 +16,10 @@ namespace File.DatReader.Test
 		}
 
 		[Fact]
-		public async Task Read_NotNull_Test()
+		public void Read_NotNull_Test()
 		{
-			var path = Path.Combine(Directory.GetCurrentDirectory(), "data/geobase.dat");
-			var result = await _service.ReadAsync(path);
+			var path = Path.Combine(Directory.GetCurrentDirectory(), DataConstatns.BatFilePath);
+			var result = _service.ReadAsync(path);
 
 			Assert.NotNull(result);
 		}
