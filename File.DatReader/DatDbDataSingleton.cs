@@ -5,7 +5,6 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-using File.DatReader;
 using File.DatReader.Constants;
 using File.DatReader.Services;
 
@@ -37,7 +36,7 @@ namespace File.DatReader
 
 		public IHead Head { get; private set; }
 
-		public IReadOnlyCollection<IIpIntervalsInformation> IpIntervalsInformation { get; private set; }
+		public IReadOnlyCollection<IIpIntervalsInformation> IpIntervalsInformations { get; private set; }
 
 		public async Task InitializeAsync()
 		{
@@ -57,12 +56,12 @@ namespace File.DatReader
 			Head = new Head(stream);
 			var records = Head.Records;
 
-			var ipIntervalsInformation = new IIpIntervalsInformation[records];
+			var ipIntervalsInformations = new IIpIntervalsInformation[records];
 			var coordinateInformations = new ICoordinateInformation[records];
 
 			for (var i = 0; i < records; i++)
 			{
-				ipIntervalsInformation[i] = new IpIntervalsInformation(stream);
+				ipIntervalsInformations[i] = new IpIntervalsInformation(stream);
 			}
 
 			for (var i = 0; i < records; i++)
@@ -70,7 +69,7 @@ namespace File.DatReader
 				coordinateInformations[i] = new CoordinateInformation(stream);
 			}
 
-			IpIntervalsInformation = new ConcurrentQueue<IIpIntervalsInformation>(ipIntervalsInformation);
+			IpIntervalsInformations = new ConcurrentQueue<IIpIntervalsInformation>(ipIntervalsInformations);
 			CoordinateInformations = new ConcurrentQueue<ICoordinateInformation>(coordinateInformations);
 		}
 	}
