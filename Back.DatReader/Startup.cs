@@ -1,4 +1,6 @@
+using System;
 using Back.DatReader.Database;
+using Back.DatReader.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -19,9 +21,16 @@ namespace Back.DatReader
 
 		public void ConfigureServices(IServiceCollection services)
 		{
+			var isDevelop = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
+
 			services.AddEntityFrameworkInMemoryDatabase();
 			services.AddDbContext<DatDbContext>(options =>
 				options.UseInMemoryDatabase(Configuration["DbContext:Name"]));
+
+			if (isDevelop)
+			{
+				services.AddSwagger();
+			}
 
 			services.AddMvcCore()
 				.AddApiExplorer();
@@ -29,9 +38,16 @@ namespace Back.DatReader
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
-			if (env.IsDevelopment())
+			var isDevelop = env.IsDevelopment();
+
+			if (isDevelop)
 			{
 				app.UseDeveloperExceptionPage();
+			}
+
+			if (isDevelop)
+			{
+				app.UseSwaggerMiddleware();
 			}
 
 			app.UseRouting();
