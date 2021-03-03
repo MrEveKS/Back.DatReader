@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Text;
+using Back.DatReader.Controllers;
 using Back.DatReader.Infrastructure.Logger;
 using Microsoft.Extensions.Configuration;
 using Serilog;
@@ -38,7 +39,7 @@ namespace Back.DatReader.Extensions
 			sb.AppendLine($"{GetEmoji(logEvent)} {logEvent.RenderMessage()}");
 
 			if (logEvent.Exception == null) return new TelegramMessage(sb.ToString(), TelegramParseModeTypes.Html);
-			var envName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Unidentified ENV";
+			var envName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? BuildConstants.Unidentified;
 
 			sb.AppendLine($"<strong>Message</strong>: <i>{logEvent.Exception.Message}</i>");
 			sb.AppendLine($"<strong>ENV</strong>: <code>{envName}</code>\n");

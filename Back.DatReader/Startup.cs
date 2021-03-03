@@ -1,4 +1,5 @@
 using System;
+using Back.DatReader.Controllers;
 using Back.DatReader.Database;
 using Back.DatReader.Middleware;
 using Microsoft.AspNetCore.Builder;
@@ -22,7 +23,7 @@ namespace Back.DatReader
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-			var isDevelop = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
+			var isDevelop = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == BuildConstants.Development;
 
 			services.AddEntityFrameworkInMemoryDatabase();
 

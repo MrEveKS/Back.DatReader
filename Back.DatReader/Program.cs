@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Back.DatReader.Controllers;
 using Back.DatReader.Extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -8,12 +9,13 @@ using Serilog;
 
 namespace Back.DatReader
 {
-    public class Program
-    {
+	public class Program
+	{
 		private static IConfiguration Configuration { get; } = new ConfigurationBuilder()
 			.SetBasePath(Directory.GetCurrentDirectory())
-			.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-			.AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", optional: true)
+			.AddJsonFile("appsettings.json", false, true)
+			.AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? BuildConstants.Production}.json",
+				true)
 			.Build();
 
 		public static int Main(string[] args)
@@ -26,13 +28,17 @@ namespace Back.DatReader
 			try
 			{
 				Log.Information("Starting host");
+
 				CreateHostBuilder(args)
-					.Build().Run();
+					.Build()
+					.Run();
+
 				return 0;
 			}
 			catch (Exception ex)
 			{
 				Log.Fatal(ex, "Host terminated unexpectedly");
+
 				return 1;
 			}
 			finally
