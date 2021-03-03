@@ -1,8 +1,8 @@
-﻿using System.IO;
+using System.IO;
 
 namespace DatReader
 {
-    public unsafe struct CoordinateInformation
+    internal unsafe struct CoordinateInformation
     {
         private const byte COUNTRY_SIZE = 8;
         private const byte REGION_SIZE = 12;

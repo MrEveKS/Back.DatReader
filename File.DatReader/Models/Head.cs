@@ -1,8 +1,8 @@
-﻿using System.IO;
+using System.IO;
 
 namespace DatReader
 {
-    public unsafe struct Head
+	internal unsafe struct Head
     {
         private const byte VERSION_SIZE = 4;
         private const byte NAME_SIZE = 32;
