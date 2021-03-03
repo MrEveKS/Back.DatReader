@@ -5,6 +5,6 @@ namespace File.DatReader.Services
 {
 	internal interface IBatReaderService
 	{
-		Task<Stream> Read(string fullPath);
+		Task<Stream> ReadAsync(string fullPath);
 	}
 }
