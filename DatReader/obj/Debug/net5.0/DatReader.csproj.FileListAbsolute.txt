@@ -1,0 +1,17 @@
+C:\Users\eveks\source\repos\DatReader\DatReader\bin\Debug\net5.0\geobase.dat
+C:\Users\eveks\source\repos\DatReader\DatReader\bin\Debug\net5.0\DatReader.exe
+C:\Users\eveks\source\repos\DatReader\DatReader\bin\Debug\net5.0\DatReader.deps.json
+C:\Users\eveks\source\repos\DatReader\DatReader\bin\Debug\net5.0\DatReader.runtimeconfig.json
+C:\Users\eveks\source\repos\DatReader\DatReader\bin\Debug\net5.0\DatReader.runtimeconfig.dev.json
+C:\Users\eveks\source\repos\DatReader\DatReader\bin\Debug\net5.0\DatReader.dll
+C:\Users\eveks\source\repos\DatReader\DatReader\bin\Debug\net5.0\ref\DatReader.dll
+C:\Users\eveks\source\repos\DatReader\DatReader\bin\Debug\net5.0\DatReader.pdb
+C:\Users\eveks\source\repos\DatReader\DatReader\obj\Debug\net5.0\DatReader.csprojAssemblyReference.cache
+C:\Users\eveks\source\repos\DatReader\DatReader\obj\Debug\net5.0\DatReader.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\eveks\source\repos\DatReader\DatReader\obj\Debug\net5.0\DatReader.AssemblyInfoInputs.cache
+C:\Users\eveks\source\repos\DatReader\DatReader\obj\Debug\net5.0\DatReader.AssemblyInfo.cs
+C:\Users\eveks\source\repos\DatReader\DatReader\obj\Debug\net5.0\DatReader.csproj.CoreCompileInputs.cache
+C:\Users\eveks\source\repos\DatReader\DatReader\obj\Debug\net5.0\DatReader.dll
+C:\Users\eveks\source\repos\DatReader\DatReader\obj\Debug\net5.0\ref\DatReader.dll
+C:\Users\eveks\source\repos\DatReader\DatReader\obj\Debug\net5.0\DatReader.pdb
+C:\Users\eveks\source\repos\DatReader\DatReader\obj\Debug\net5.0\DatReader.genruntimeconfig.cache

@@ -1,0 +1,14 @@
+C:\Users\eveks\source\repos\DatReader\DatReader\bin\Debug\netcoreapp3.1\geobase.dat
+C:\Users\eveks\source\repos\DatReader\DatReader\bin\Debug\netcoreapp3.1\DatReader.exe
+C:\Users\eveks\source\repos\DatReader\DatReader\bin\Debug\netcoreapp3.1\DatReader.deps.json
+C:\Users\eveks\source\repos\DatReader\DatReader\bin\Debug\netcoreapp3.1\DatReader.runtimeconfig.json
+C:\Users\eveks\source\repos\DatReader\DatReader\bin\Debug\netcoreapp3.1\DatReader.runtimeconfig.dev.json
+C:\Users\eveks\source\repos\DatReader\DatReader\bin\Debug\netcoreapp3.1\DatReader.dll
+C:\Users\eveks\source\repos\DatReader\DatReader\bin\Debug\netcoreapp3.1\DatReader.pdb
+C:\Users\eveks\source\repos\DatReader\DatReader\obj\Debug\netcoreapp3.1\DatReader.csprojAssemblyReference.cache
+C:\Users\eveks\source\repos\DatReader\DatReader\obj\Debug\netcoreapp3.1\DatReader.AssemblyInfoInputs.cache
+C:\Users\eveks\source\repos\DatReader\DatReader\obj\Debug\netcoreapp3.1\DatReader.AssemblyInfo.cs
+C:\Users\eveks\source\repos\DatReader\DatReader\obj\Debug\netcoreapp3.1\DatReader.csproj.CoreCompileInputs.cache
+C:\Users\eveks\source\repos\DatReader\DatReader\obj\Debug\netcoreapp3.1\DatReader.dll
+C:\Users\eveks\source\repos\DatReader\DatReader\obj\Debug\netcoreapp3.1\DatReader.pdb
+C:\Users\eveks\source\repos\DatReader\DatReader\obj\Debug\netcoreapp3.1\DatReader.genruntimeconfig.cache
