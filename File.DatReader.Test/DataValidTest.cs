@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
 using DatReader;
 using Xunit;
@@ -25,7 +25,7 @@ namespace File.DatReader.Test
 			{
 				var timer = Stopwatch.StartNew();
 
-				await datDataReader.DeserializeAsync();
+				await datDataReader.InitializeAsync();
 
 				var time = timer.Elapsed.TotalMilliseconds;
 
