@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31019.35
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatReader", "DatReader\DatReader.csproj", "{7ACE1158-CC76-4A2C-8529-75213C052878}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "File.DatReader", "File.DatReader\File.DatReader.csproj", "{705D88C2-29F2-4CC7-BA9C-DC6ED66EABA8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{7ACE1158-CC76-4A2C-8529-75213C052878}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7ACE1158-CC76-4A2C-8529-75213C052878}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7ACE1158-CC76-4A2C-8529-75213C052878}.Release|Any CPU.Build.0 = Release|Any CPU
+		{705D88C2-29F2-4CC7-BA9C-DC6ED66EABA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{705D88C2-29F2-4CC7-BA9C-DC6ED66EABA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{705D88C2-29F2-4CC7-BA9C-DC6ED66EABA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{705D88C2-29F2-4CC7-BA9C-DC6ED66EABA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

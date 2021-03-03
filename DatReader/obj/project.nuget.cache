@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "BC5vdHCWVqepg0gPJ3yxf1U29nuH6FHW8/y4/nLEAgJE2qiox45SGq5J1pWH0GRHeI45/XbVv6U/5u0XLAZxbQ==",
+  "dgSpecHash": "wZCk+4D4fuCEyIZYu3sudURAs3rYEAD4w0qwj3879Hsp79wG4q5VU8LZUsZ2JgO7aTZc1/CkbZ4aut7usVCisw==",
   "success": true,
   "projectFilePath": "C:\\Users\\eveks\\source\\repos\\DatReader\\DatReader\\DatReader.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\eveks\\.nuget\\packages\\microsoft.entityframeworkcore\\5.0.3\\microsoft.entityframeworkcore.5.0.3.nupkg.sha512",
     "C:\\Users\\eveks\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\5.0.3\\microsoft.entityframeworkcore.abstractions.5.0.3.nupkg.sha512",
     "C:\\Users\\eveks\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\5.0.3\\microsoft.entityframeworkcore.analyzers.5.0.3.nupkg.sha512",
+    "C:\\Users\\eveks\\.nuget\\packages\\microsoft.entityframeworkcore.inmemory\\5.0.3\\microsoft.entityframeworkcore.inmemory.5.0.3.nupkg.sha512",
     "C:\\Users\\eveks\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\5.0.0\\microsoft.extensions.caching.abstractions.5.0.0.nupkg.sha512",
     "C:\\Users\\eveks\\.nuget\\packages\\microsoft.extensions.caching.memory\\5.0.0\\microsoft.extensions.caching.memory.5.0.0.nupkg.sha512",
     "C:\\Users\\eveks\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\5.0.1\\microsoft.extensions.dependencyinjection.5.0.1.nupkg.sha512",
