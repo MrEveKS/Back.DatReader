@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Back.DatReader.Database
 {
-	public class DatDbContext : CoreDbContext
+	public sealed class DatDbContext : CoreDbContext
 	{
 		public DatDbContext(IWebHostEnvironment env, DbContextOptions options) : base(options)
 		{
