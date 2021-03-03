@@ -17,7 +17,7 @@ namespace File.DatReader.Test
 		[Fact]
 		public void Read_NotNull_Test()
 		{
-			var path = Path.Combine(Directory.GetCurrentDirectory(), DataConstatns.BatFilePath);
+			var path = Path.Combine(Directory.GetCurrentDirectory(), DataConstants.DatFilePath);
 			var result = _service.ReadAsync(path);
 
 			Assert.NotNull(result);

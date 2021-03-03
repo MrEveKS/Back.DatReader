@@ -1,7 +1,9 @@
+using File.DatReader.Models;
+
 namespace Back.DatReader.Models
 {
-    public class CoordinateInformation
-    {
+    public class CoordinateInformation : ICoordinateInformation
+	{
         public string Country { get; set; }
         public string Region { get; set; }
         public string Postal { get; set; }

@@ -1,7 +1,9 @@
+using File.DatReader.Models;
+
 namespace Back.DatReader.Models
 {
-    public class Header
-    {
+    public class Header : IHead
+	{
         public int Version { get; set; }
         public string Name { get; set; }
         public ulong Timestamp { get; set; }

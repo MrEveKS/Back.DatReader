@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using File.DatReader.Constants;
+using File.DatReader.Models;
 using File.DatReader.Services;
 
 [assembly: InternalsVisibleTo("File.DatReader.Test")]
@@ -50,7 +51,7 @@ namespace File.DatReader
 				_isInProgress = true;
 			}
 
-			var filePath = Path.Combine(Directory.GetCurrentDirectory(), DataConstatns.BatFilePath);
+			var filePath = Path.Combine(Directory.GetCurrentDirectory(), DataConstants.DatFilePath);
 			await using var stream = _readerService.ReadAsync(filePath);
 
 			Head = new Head(stream);

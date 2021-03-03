@@ -1,4 +1,4 @@
-namespace File.DatReader
+namespace File.DatReader.Models
 {
 	public interface IIpIntervalsInformation
 	{

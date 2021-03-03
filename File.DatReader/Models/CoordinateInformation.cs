@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace File.DatReader
+namespace File.DatReader.Models
 {
 	internal unsafe struct CoordinateInformation : ICoordinateInformation
 	{
