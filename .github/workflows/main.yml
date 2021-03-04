@@ -22,6 +22,6 @@ jobs:
     - name: Build Project
       run: dotnet build --no-restore
     - name: Tests Back.DatReader
-      run: dotnet test Back.DatReader.Test --no-build --verbosity normal
+      run: dotnet test Back.DatReader.Test --verbosity normal
     - name: Tests File.DatReader
-      run: dotnet File.DatReader.Test --no-build --verbosity normal
+      run: dotnet File.DatReader.Test --verbosity normal
