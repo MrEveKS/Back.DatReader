@@ -1,7 +1,9 @@
 using System;
 using Back.DatReader.Controllers;
 using Back.DatReader.Database;
+using Back.DatReader.Infrastructure.Logger;
 using Back.DatReader.Middleware;
+using Back.DatReader.Middleware.DbInitialization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -25,12 +27,11 @@ namespace Back.DatReader
 		{
 			var isDevelop = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == BuildConstants.DEVELOPMENT;
 
-			services.AddEntityFrameworkInMemoryDatabase();
-
 			services.AddDbContext<DatDbContext>(options =>
 				options.UseInMemoryDatabase(Configuration["DbContext:Name"]));
 
 			services.AddSingleton(Configuration);
+			services.AddScoped<IActionLogger, ActionLogger>();
 
 			if (isDevelop)
 			{
@@ -44,6 +45,7 @@ namespace Back.DatReader
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
 			var isDevelop = env.IsDevelopment();
+			app.InitializeDatabase<DatDbContext>();
 
 			if (isDevelop)
 			{

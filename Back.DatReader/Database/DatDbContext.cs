@@ -7,11 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Back.DatReader.Database
 {
-	public class DatDbContext : CoreDbContext
+	public sealed class DatDbContext : CoreDbContext
 	{
 		public DatDbContext(DbContextOptions options) : base(options)
 		{
-			Database.EnsureCreated();
 			InitData();
 		}
 
@@ -20,11 +19,6 @@ namespace Back.DatReader.Database
 		public DbSet<CoordinateInformation> CoordinateInformations { get; set; }
 
 		public DbSet<IpIntervalsInformation> IpIntervalsInformations { get; set; }
-
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-		{
-			base.OnConfiguring(optionsBuilder);
-		}
 
 		private void InitData()
 		{

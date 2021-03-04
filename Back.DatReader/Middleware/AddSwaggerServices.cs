@@ -7,8 +7,15 @@ using Microsoft.OpenApi.Models;
 
 namespace Back.DatReader.Middleware
 {
+	/// <summary>
+	/// Initialize swagger services
+	/// </summary>
 	public static class AddSwaggerServices
 	{
+		/// <summary>
+		/// Use swagger on Configure
+		/// </summary>
+		/// <param name="app"></param>
 		public static void UseSwaggerMiddleware(this IApplicationBuilder app)
 		{
 			app.UseSwagger();
@@ -19,6 +26,10 @@ namespace Back.DatReader.Middleware
 			});
 		}
 
+		/// <summary>
+		/// Add swagger in ConfigureServices
+		/// </summary>
+		/// <param name="services"></param>
 		public static void AddSwagger(this IServiceCollection services)
 		{
 			services.AddSwaggerGen(c =>
