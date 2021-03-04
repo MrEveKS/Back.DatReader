@@ -1,21 +1,39 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
-	mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+	mode: 'production',
 	entry: './src/main.js',
 	output: {
 		path: path.resolve(__dirname, 'wwwroot'),
-		filename: 'index.bundle.js'
+		filename: '[name].[contenthash].bundle.js',
+		clean: true,
 	},
 	plugins: [
-		new HtmlWebpackPlugin()
+		new webpack.ProgressPlugin(),
+		new HtmlWebpackPlugin({
+			title: 'Geo Information',
+		})
 	],
 	module: {
 		rules: [
-			{ test: /\.svg$/, use: 'svg-inline-loader' },
-			{ test: /\.css$/, use: [ 'style-loader', 'css-loader' ] },
-			{ test: /\.(js)$/, use: 'babel-loader' }
+			{test: /\.svg$/, use: 'svg-inline-loader'},
+			{test: /\.css$/, use: ['style-loader', 'css-loader']},
+			{test: /\.(js)$/, use: 'babel-loader'}
 		]
+	},
+	optimization: {
+		moduleIds: 'deterministic',
+		runtimeChunk: 'single',
+		splitChunks: {
+			cacheGroups: {
+				vendor: {
+					test: /[\\/]node_modules[\\/]/,
+					name: 'vendors',
+					chunks: 'all',
+				},
+			},
+		},
 	},
 }
