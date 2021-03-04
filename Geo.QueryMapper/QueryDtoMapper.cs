@@ -24,13 +24,13 @@ namespace Geo.QueryMapper
 		where TEntity : class, new()
 		where TResultDto : class
 	{
+		private readonly DbContext _dbContext;
+
 		private readonly string _entityKeyPropertyName;
 
 		private readonly PropertyInfo[] _entityProperties = typeof(TEntity).GetProperties();
 
 		private readonly PropertyInfo[] _listProperties = typeof(TResultDto).GetProperties();
-
-		private readonly DbContext DbContext;
 
 		/// <summary>
 		/// Projection settings
@@ -44,7 +44,7 @@ namespace Geo.QueryMapper
 
 		public QueryDtoMapper(DbContext dbContext)
 		{
-			DbContext = dbContext;
+			_dbContext = dbContext;
 			_entityKeyPropertyName = GetPrimaryKey(typeof(TEntity));
 		}
 
@@ -209,7 +209,7 @@ namespace Geo.QueryMapper
 		{
 			if (updateQuery || Query == null)
 			{
-				Query = DbContext.Set<TEntity>().AsNoTracking();
+				Query = _dbContext.Set<TEntity>().AsNoTracking();
 			}
 
 			var filter = (_queryDto as QueryDto<TFilter>)?.Filter;
@@ -460,6 +460,30 @@ namespace Geo.QueryMapper
 					op = Expression.Equal(property, value);
 
 					break;
+
+				case EntityRestrictions.Greater:
+					ExpressionExtension.ConvertToCommonNullable(ref property, ref value);
+					op = Expression.GreaterThan(property, value);
+
+					break;
+
+				case EntityRestrictions.GreaterEqual:
+					ExpressionExtension.ConvertToCommonNullable(ref property, ref value);
+					op = Expression.GreaterThanOrEqual(property, value);
+
+					break;
+
+				case EntityRestrictions.Less:
+					ExpressionExtension.ConvertToCommonNullable(ref property, ref value);
+					op = Expression.LessThan(property, value);
+
+					break;
+
+				case EntityRestrictions.LessEqual:
+					ExpressionExtension.ConvertToCommonNullable(ref property, ref value);
+					op = Expression.LessThanOrEqual(property, value);
+
+					break;
 			}
 
 			return op;
@@ -528,7 +552,7 @@ namespace Geo.QueryMapper
 
 		private string GetPrimaryKey(Type entityType)
 		{
-			return DbContext.Model.FindEntityType(entityType)
+			return _dbContext.Model.FindEntityType(entityType)
 				.FindPrimaryKey()
 				.Properties.Select(x => x.Name)
 				.Single();
