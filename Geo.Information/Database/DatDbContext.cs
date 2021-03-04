@@ -23,7 +23,7 @@ namespace Geo.Information.Database
 		private void InitData()
 		{
 			var badData = DatDbDataSingleton.Current;
-			badData.InitializeAsync().ConfigureAwait(AsyncConstants.CONTINUE_ON_CAPTURED_CONTEXT).GetAwaiter().GetResult();
+			badData.InitializeAsync();
 
 			if (!Headers.Any())
 			{
