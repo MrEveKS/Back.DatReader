@@ -21,7 +21,7 @@ namespace Back.DatReader.Controllers.TestControllers
 			var filter = new QueryDto<IpIntervalsInformationFilterDto>
 			{
 				Filter = new IpIntervalsInformationFilterDto
-					{ UserIp = ip }
+					{ IpAddress = ip }
 			};
 
 			return GetAll(filter, cancellationToken);
