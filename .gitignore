@@ -1,4 +1,5 @@
-﻿/**/bin/
+/**/bin/
 /**/obj/
 /.vs
 /**/logs
+/**/TestResults
