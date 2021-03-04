@@ -6,7 +6,7 @@ using Back.DatReader.Models.Dto.QueryResult;
 using Back.DatReader.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Back.DatReader.Controllers
+namespace Back.DatReader.Controllers.BaseControllers
 {
 	[Route("api/[controller]/[action]")]
 	[Produces("application/json")]
@@ -22,7 +22,7 @@ namespace Back.DatReader.Controllers
 		}
 
 		[HttpPost]
-		public Task<IQueryResultDto<TEntityDto>> GetAll([FromBody] QueryDto<TEntityFilterDto> filter,
+		public virtual Task<IQueryResultDto<TEntityDto>> GetAll([FromBody] QueryDto<TEntityFilterDto> filter,
 														CancellationToken cancellationToken = default)
 		{
 			return _service.GetAll(filter, cancellationToken);

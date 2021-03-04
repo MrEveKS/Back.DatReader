@@ -116,7 +116,7 @@ namespace Back.DatReader.Database.QueryMapper
 
 			var result = Expression.New(typeof(TResultDto));
 
-			var memberInits = new List<MemberAssignment>();
+			var memberAssignments = new List<MemberAssignment>();
 
 			foreach (var listPropertyInfo in _listProperties)
 			{
@@ -126,7 +126,7 @@ namespace Back.DatReader.Database.QueryMapper
 					{
 						var bindCall = Expression.Invoke(bindExpression, entityParameter);
 						var bind = Expression.Bind(listPropertyInfo, bindCall);
-						memberInits.Add(bind);
+						memberAssignments.Add(bind);
 					}
 
 					continue;
@@ -183,11 +183,11 @@ namespace Back.DatReader.Database.QueryMapper
 
 				if (propertyBind != null)
 				{
-					memberInits.Add(propertyBind);
+					memberAssignments.Add(propertyBind);
 				}
 			}
 
-			var memberInit = Expression.MemberInit(result, memberInits);
+			var memberInit = Expression.MemberInit(result, memberAssignments);
 			var expression = Expression.Lambda<Func<T, TResultDto>>(memberInit, entityParameter);
 
 			return query.Select(expression);
@@ -296,7 +296,7 @@ namespace Back.DatReader.Database.QueryMapper
 		/// <returns> the query is sorted </returns>
 		private IQueryable<TResultDto> SetOrder(IQueryable<TResultDto> query)
 		{
-			if (_queryDto.Order.IsEmpty())
+			if (_queryDto == null || _queryDto.Order.IsEmpty())
 			{
 				return query;
 			}
