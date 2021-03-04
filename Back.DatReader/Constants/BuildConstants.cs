@@ -1,4 +1,4 @@
-namespace Back.DatReader.Controllers
+namespace Back.DatReader.Constants
 {
 	public static class BuildConstants
 	{

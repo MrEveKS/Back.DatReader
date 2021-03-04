@@ -1,13 +1,12 @@
-using Microsoft.AspNetCore.Mvc;
+using Back.DatReader.Models.Dto.Header;
+using Back.DatReader.Services.HeaderServices;
 
 namespace Back.DatReader.Controllers
 {
-	public class HeaderController : BaseController
+	public class HeaderController : BaseController<HeaderDto, HeaderFilterDto>
 	{
-		[HttpGet]
-		public JsonResult GetEntity()
+		public HeaderController(IHeaderService service) : base(service)
 		{
-			return Json("");
 		}
 	}
 }

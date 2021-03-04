@@ -10,6 +10,7 @@
     &lt;TestId&gt;xUnit::760C7B1C-0597-473E-A840-AD9EB2E43AC2::net5.0::Back.DatReader.Test.ProjectQueryTest.CoordinateInformationTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::37112E63-1B7B-473C-8728-11C3DC7A0A1A::net5.0::File.DatReader.Test.DatTimeTest.DatDataReader_Time_Test&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::37112E63-1B7B-473C-8728-11C3DC7A0A1A::net5.0::File.DatReader.Test.DatTimeTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::37112E63-1B7B-473C-8728-11C3DC7A0A1A::net5.0::File.DatReader.Test.BatReaderServiceTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	</wpf:ResourceDictionary>

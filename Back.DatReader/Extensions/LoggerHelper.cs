@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using System.Text;
-using Back.DatReader.Controllers;
+using Back.DatReader.Constants;
 using Back.DatReader.Infrastructure.Logger;
 using Microsoft.Extensions.Configuration;
 using Serilog;
@@ -29,8 +29,8 @@ namespace Back.DatReader.Extensions
 						a.Telegram(config.BotId,
 							config.ChatId,
 							logEvent => RenderMessage(logEvent, config),
-							config.LogEventLevel ?? LogEventLevel.Fatal)
-					, bufferSize: 50);
+							config.LogEventLevel ?? LogEventLevel.Fatal),
+					50);
 		}
 
 		private static TelegramMessage RenderMessage(LogEvent logEvent, TelegramLoggerConfigModel tgConfig)
@@ -38,7 +38,11 @@ namespace Back.DatReader.Extensions
 			var sb = new StringBuilder();
 			sb.AppendLine($"{GetEmoji(logEvent)} {logEvent.RenderMessage()}");
 
-			if (logEvent.Exception == null) return new TelegramMessage(sb.ToString(), TelegramParseModeTypes.Html);
+			if (logEvent.Exception == null)
+			{
+				return new TelegramMessage(sb.ToString(), TelegramParseModeTypes.Html);
+			}
+
 			var envName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? BuildConstants.UNIDENTIFIED;
 
 			sb.AppendLine($"<strong>Message</strong>: <i>{logEvent.Exception.Message}</i>");

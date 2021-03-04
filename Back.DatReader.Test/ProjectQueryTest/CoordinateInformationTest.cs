@@ -37,7 +37,7 @@ namespace Back.DatReader.Test.ProjectQueryTest
 		}
 
 		[Fact]
-		public async Task Get_WIth_Fulter_Test()
+		public async Task Get_With_Filter_Test()
 		{
 			var filter = new CoordinateInformationFilterDto()
 			{

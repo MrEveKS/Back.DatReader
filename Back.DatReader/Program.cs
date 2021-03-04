@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 using System.Runtime.CompilerServices;
-using Back.DatReader.Controllers;
+using Back.DatReader.Constants;
 using Back.DatReader.Extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

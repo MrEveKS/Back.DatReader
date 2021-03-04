@@ -1,5 +1,5 @@
 using System;
-using Back.DatReader.Controllers;
+using Back.DatReader.Constants;
 using Back.DatReader.Database;
 using Back.DatReader.Infrastructure.Logger;
 using Back.DatReader.Middleware;
@@ -31,7 +31,9 @@ namespace Back.DatReader
 				options.UseInMemoryDatabase(Configuration["DbContext:Name"]));
 
 			services.AddSingleton(Configuration);
+			services.AddScoped<CoreDbContext, DatDbContext>();
 			services.AddScoped<IActionLogger, ActionLogger>();
+			services.AddEntityServices();
 
 			if (isDevelop)
 			{
