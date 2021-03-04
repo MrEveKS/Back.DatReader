@@ -1,5 +1,3 @@
-using System.IO;
-
 namespace Geo.DatReader.Models
 {
 	internal unsafe struct IpIntervalsInformation : IIpIntervalsInformation
@@ -12,7 +10,7 @@ namespace Geo.DatReader.Models
 
 		public const byte Size = IpFromSize + IpToSize + LocationIndexSize;
 
-        private readonly byte[] _buffer;
+		private readonly byte[] _buffer;
 
 		private uint? _ipFrom;
 
@@ -25,25 +23,6 @@ namespace Geo.DatReader.Models
 		public uint IpTo => GetIpTo();
 
 		public uint LocationIndex => GetLocationIndex();
-
-		public IpIntervalsInformation(Stream stream)
-		{
-			_ipFrom = null;
-			_ipTo = null;
-			_locationIndex = null;
-
-			_buffer = new byte[Size];
-			stream.Read(_buffer, 0, Size);
-		}
-
-		public IpIntervalsInformation(bool test = false)
-		{
-			_ipFrom = null;
-			_ipTo = null;
-			_locationIndex = null;
-
-			 _buffer = null;
-		}
 
 		public IpIntervalsInformation(byte[] buffer)
 		{

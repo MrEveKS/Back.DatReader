@@ -70,19 +70,6 @@ namespace Geo.DatReader.Models
 			stream.Read(_buffer, 0, Size);
 		}
 
-		public Head(byte[] buffer)
-		{
-			_version = null;
-			_name = null;
-			_timestamp = null;
-			_records = null;
-			_offsetRanges = null;
-			_offsetCities = null;
-			_offsetLocations = null;
-
-			_buffer = buffer;
-		}
-
 		private int GetVersion()
 		{
 			return _version ??= InitInt(0);

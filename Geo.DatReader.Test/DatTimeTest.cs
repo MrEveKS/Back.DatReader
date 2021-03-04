@@ -1,5 +1,8 @@
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
+using Geo.DatReader.Constants;
+using Geo.DatReader.Services;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -15,7 +18,7 @@ namespace Geo.DatReader.Test
 		}
 
 		[Fact]
-		public void DatDataReader_Time_Test()
+		public async Task DatInitialize_Time_Test()
 		{
 			var datDataReader = DatDbDataSingleton.Current;
 			datDataReader.SkipNoInitialize = true;
@@ -24,25 +27,7 @@ namespace Geo.DatReader.Test
 			{
 				var timer = Stopwatch.StartNew();
 
-				datDataReader.InitializeAsync();
-
-				var time = timer.Elapsed.TotalMilliseconds;
-
-				_testOutputHelper.WriteLine($"time: {time: 0.0000} ms");
-			}
-		}
-
-		[Fact (Skip = "test")]
-		public void DatDataReader_1_Time_Test()
-		{
-			var datDataReader = DatDbDataSingleton.Current;
-			datDataReader.SkipNoInitialize = true;
-
-			for (var index = 0; index < 10; index++)
-			{
-				var timer = Stopwatch.StartNew();
-
-				datDataReader.ArrayInitialization();
+				await datDataReader.InitializeAsync();
 
 				var time = timer.Elapsed.TotalMilliseconds;
 
@@ -51,8 +36,11 @@ namespace Geo.DatReader.Test
 		}
 
 		[Fact]
-		public void DatDataReader_2_Time_Test()
+		public async Task HeadInitialization_Time_Test()
 		{
+			var path = Path.Combine(Directory.GetCurrentDirectory(), DataConstants.DAT_FILE_PATH);
+			await using var stream = new FileReaderService().Read(path);
+
 			var datDataReader = DatDbDataSingleton.Current;
 			datDataReader.SkipNoInitialize = true;
 
@@ -60,7 +48,7 @@ namespace Geo.DatReader.Test
 			{
 				var timer = Stopwatch.StartNew();
 
-				datDataReader.ArrayInitialization2();
+				datDataReader.HeadInitialize(stream);
 
 				var time = timer.Elapsed.TotalMilliseconds;
 
@@ -69,17 +57,21 @@ namespace Geo.DatReader.Test
 		}
 
 		[Fact]
-		public void DatDataReader_3_Time_Test()
+		public async Task BodyRead_Time_Test()
 		{
+			var path = Path.Combine(Directory.GetCurrentDirectory(), DataConstants.DAT_FILE_PATH);
+			await using var stream = new FileReaderService().Read(path);
+
 			var datDataReader = DatDbDataSingleton.Current;
 			datDataReader.SkipNoInitialize = true;
+			datDataReader.HeadInitialize(stream);
 
 			for (var index = 0; index < 10; index++)
 			{
 				var timer = Stopwatch.StartNew();
 
-				datDataReader.ArrayInitialization3();
-
+				datDataReader.BodyRead(stream);
+				
 				var time = timer.Elapsed.TotalMilliseconds;
 
 				_testOutputHelper.WriteLine($"time: {time: 0.0000} ms");
@@ -87,52 +79,20 @@ namespace Geo.DatReader.Test
 		}
 
 		[Fact]
-		public void DatDataReader_4_Time_Test()
+		public async Task BodyInitialize_Time_Test()
 		{
+			var path = Path.Combine(Directory.GetCurrentDirectory(), DataConstants.DAT_FILE_PATH);
+			await using var stream = new FileReaderService().Read(path);
+
 			var datDataReader = DatDbDataSingleton.Current;
 			datDataReader.SkipNoInitialize = true;
+			datDataReader.HeadInitialize(stream);
 
 			for (var index = 0; index < 10; index++)
 			{
 				var timer = Stopwatch.StartNew();
 
-				datDataReader.ArrayInitialization4();
-
-				var time = timer.Elapsed.TotalMilliseconds;
-
-				_testOutputHelper.WriteLine($"time: {time: 0.0000} ms");
-			}
-		}
-
-		[Fact]
-		public async Task DatDataReader_5_Time_Test()
-		{
-			var datDataReader = DatDbDataSingleton.Current;
-			datDataReader.SkipNoInitialize = true;
-
-			for (var index = 0; index < 10; index++)
-			{
-				var timer = Stopwatch.StartNew();
-
-				await datDataReader.ArrayInitialization5();
-
-				var time = timer.Elapsed.TotalMilliseconds;
-
-				_testOutputHelper.WriteLine($"time: {time: 0.0000} ms");
-			}
-		}
-
-		[Fact]
-		public async Task DatDataReader_6_Time_Test()
-		{
-			var datDataReader = DatDbDataSingleton.Current;
-			datDataReader.SkipNoInitialize = true;
-
-			for (var index = 0; index < 10; index++)
-			{
-				var timer = Stopwatch.StartNew();
-
-				await datDataReader.InitializeAsync2();
+				await datDataReader.BodyInitialize(stream);
 
 				var time = timer.Elapsed.TotalMilliseconds;
 

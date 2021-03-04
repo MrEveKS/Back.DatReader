@@ -50,34 +50,6 @@ namespace Geo.DatReader.Models
 
 		public float Longitude => GetLongitude();
 
-		public CoordinateInformation(Stream stream)
-		{
-			_country = null;
-			_region = null;
-			_postal = null;
-			_city = null;
-			_organization = null;
-			_latitude = null;
-			_longitude = null;
-
-			_buffer = new byte[Size];
-			stream.Read(_buffer, 0, Size);
-		}
-
-		public CoordinateInformation(bool test = false)
-		{
-			_country = null;
-			_region = null;
-			_postal = null;
-			_city = null;
-			_organization = null;
-			_latitude = null;
-			_longitude = null;
-
-			_buffer = null;
-		}
-
-
 		public CoordinateInformation(byte[] buffer)
 		{
 			_country = null;
