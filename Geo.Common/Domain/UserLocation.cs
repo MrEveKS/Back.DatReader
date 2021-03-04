@@ -1,6 +1,6 @@
-namespace Geo.Common.Dto.CoordinateInformation
+namespace Geo.Common.Domain
 {
-	public class CoordinateInformationDto : EntityDto
+	public class UserLocation : DbEntity
 	{
 		public string Country { get; set; }
 

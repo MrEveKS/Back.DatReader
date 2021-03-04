@@ -1,6 +1,6 @@
-using Geo.Information.Services.CoordinateInformationServices;
 using Geo.Information.Services.HeaderServices;
-using Geo.Information.Services.IpIntervalsInformationServices;
+using Geo.Information.Services.UserIpServices;
+using Geo.Information.Services.UserLocationServices;
 using Geo.QueryMapper;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,9 +15,9 @@ namespace Geo.Information.Middleware
 		public static void AddEntityServices(this IServiceCollection services)
 		{
 			services.AddScoped(typeof(IQueryDtoMapper<,>), typeof(QueryDtoMapper<,>));
-			services.AddScoped<IHeaderService, HeaderService>();
-			services.AddScoped<ICoordinateInformationService, CoordinateInformationService>();
-			services.AddScoped<IIpIntervalsInformationService, IpIntervalsInformationService>();
+			services.AddScoped<IDatInfoService, DatInfoService>();
+			services.AddScoped<IUserLocationService, UserLocationService>();
+			services.AddScoped<IUserIpService, UserIpService>();
 		}
 	}
 }

@@ -37,11 +37,11 @@ namespace Geo.DatReader
 
 		public static DatDbDataSingleton Current => LazyInstance.Value;
 
-		public IReadOnlyCollection<ICoordinateInformation> CoordinateInformations { get; private set; }
+		public IReadOnlyCollection<IUserLocation> UserLocations { get; private set; }
 
-		public IHead Head { get; private set; }
+		public IDatInfo DatInfo { get; private set; }
 
-		public IReadOnlyCollection<IIpIntervalsInformation> IpIntervalsInformations { get; private set; }
+		public IReadOnlyCollection<IUserIp> UserIps { get; private set; }
 
 		public async Task InitializeAsync()
 		{
@@ -58,24 +58,24 @@ namespace Geo.DatReader
 			var filePath = Path.Combine(AppContext.BaseDirectory, DataConstants.DAT_FILE_PATH);
 			await using var stream = _readerService.Read(filePath);
 
-			Head = new Head(stream);
-			var records = Head.Records;
+			DatInfo = new DatInfo(stream);
+			var records = DatInfo.Records;
 
-			var ipIntervalsInformations = new IIpIntervalsInformation[records];
-			var coordinateInformations = new ICoordinateInformation[records];
+			var ipIntervalsInformations = new IUserIp[records];
+			var coordinateInformations = new IUserLocation[records];
 
 			for (var i = 0; i < records; i++)
 			{
-				ipIntervalsInformations[i] = new IpIntervalsInformation(stream);
+				ipIntervalsInformations[i] = new UserIp(stream);
 			}
 
 			for (var i = 0; i < records; i++)
 			{
-				coordinateInformations[i] = new CoordinateInformation(stream);
+				coordinateInformations[i] = new UserLocation(stream);
 			}
 
-			IpIntervalsInformations = new ConcurrentQueue<IIpIntervalsInformation>(ipIntervalsInformations);
-			CoordinateInformations = new ConcurrentQueue<ICoordinateInformation>(coordinateInformations);
+			UserIps = new ConcurrentQueue<IUserIp>(ipIntervalsInformations);
+			UserLocations = new ConcurrentQueue<IUserLocation>(coordinateInformations);
 		}
 	}
 }

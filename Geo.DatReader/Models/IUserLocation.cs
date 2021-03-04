@@ -1,6 +1,6 @@
 namespace Geo.DatReader.Models
 {
-	public interface ICoordinateInformation
+	public interface IUserLocation
 	{
 		string Country { get; }
 

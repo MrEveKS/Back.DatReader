@@ -1,6 +1,6 @@
-namespace Geo.Common.Dto.CoordinateInformation
+namespace Geo.Common.Dto.UserLocation
 {
-	public class CoordinateInformationFilterDto : EntityDto
+	public class UserLocationFilterDto : EntityDto
 	{
 		public string CityEqual { get; set; }
 

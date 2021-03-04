@@ -1,6 +1,6 @@
 namespace Geo.Common.Domain
 {
-	public class Header : DbEntity
+	public class DatInfo : DbEntity
 	{
 		public int Version { get; set; }
 

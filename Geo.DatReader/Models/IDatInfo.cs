@@ -1,6 +1,6 @@
 namespace Geo.DatReader.Models
 {
-	public interface IHead
+	public interface IDatInfo
 	{
 		int Version { get; }
 

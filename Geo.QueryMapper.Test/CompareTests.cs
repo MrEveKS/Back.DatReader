@@ -8,7 +8,22 @@ namespace Geo.QueryMapper.Test
 {
 	public class CompareTests : BaseQueryDtoMapperTest
 	{
-		#region Int
+		private async Task CommonTest(OrganizationFilterDto filter, Func<OrganizationListDto, bool> func)
+		{
+			var mapper = GetQueryDtoMapper();
+			var result = await GetResultAsync(mapper, filter);
+
+			Assert.NotEmpty(result.Items);
+			Assert.True(result.Items.All(func));
+		}
+
+		private DateTime? GetDate(int? day)
+		{
+			return day.HasValue ? (DateTime?) Organization.CreateDateConst.AddDays(day.Value) : null;
+		}
+
+	#region Int
+
 		[Theory]
 		[InlineData(2)]
 		[InlineData(3)]
@@ -62,9 +77,11 @@ namespace Geo.QueryMapper.Test
 
 			await CommonTest(filter, e => e.Id >= id);
 		}
-		#endregion
 
-		#region DateTime
+	#endregion
+
+	#region DateTime
+
 		[Theory]
 		[InlineData(1)]
 		[InlineData(2)]
@@ -118,20 +135,7 @@ namespace Geo.QueryMapper.Test
 
 			await CommonTest(filter, e => e.CreateDate >= filter.CreateDateGreaterEqual);
 		}
-		#endregion
 
-		private async Task CommonTest(OrganizationFilterDto filter, Func<OrganizationListDto, bool> func)
-		{
-			var mapper = GetQueryDtoMapper();
-			var result = await GetResultAsync(mapper, filter);
-
-			Assert.NotEmpty(result.Items);
-			Assert.True(result.Items.All(func));
-		}
-
-		private DateTime? GetDate(int? day)
-		{
-			return day.HasValue ? (DateTime?) Organization.CreateDateConst.AddDays(day.Value) : null;
-		}
+	#endregion
 	}
 }

@@ -2,7 +2,7 @@ using System.IO;
 
 namespace Geo.DatReader.Models
 {
-	internal unsafe struct Head : IHead
+	internal unsafe struct DatInfo : IDatInfo
 	{
 		private const byte VersionSize = 4;
 
@@ -56,7 +56,7 @@ namespace Geo.DatReader.Models
 
 		public uint OffsetLocations => GetOffsetLocations();
 
-		public Head(Stream stream)
+		public DatInfo(Stream stream)
 		{
 			_version = null;
 			_name = null;

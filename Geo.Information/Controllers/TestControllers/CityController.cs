@@ -1,26 +1,26 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Geo.Common.Dto.CoordinateInformation;
 using Geo.Common.Dto.Query;
 using Geo.Common.Dto.QueryResult;
+using Geo.Common.Dto.UserLocation;
 using Geo.Information.Controllers.BaseControllers;
-using Geo.Information.Services.CoordinateInformationServices;
+using Geo.Information.Services.UserLocationServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Geo.Information.Controllers.TestControllers
 {
-	public class CityController : BaseController<CoordinateInformationDto, CoordinateInformationFilterDto>
+	public class CityController : BaseController<UserLocationDto, UserLocationFilterDto>
 	{
-		public CityController(ICoordinateInformationService service) : base(service)
+		public CityController(IUserLocationService service) : base(service)
 		{
 		}
 
 		[HttpGet]
-		public Task<IQueryResultDto<CoordinateInformationDto>> Locations(string city, CancellationToken cancellationToken = default)
+		public Task<IQueryResultDto<UserLocationDto>> Locations(string city, CancellationToken cancellationToken = default)
 		{
-			var filter = new QueryDto<CoordinateInformationFilterDto>
+			var filter = new QueryDto<UserLocationFilterDto>
 			{
-				Filter = new CoordinateInformationFilterDto
+				Filter = new UserLocationFilterDto
 					{ CityEqual = city }
 			};
 
@@ -28,8 +28,8 @@ namespace Geo.Information.Controllers.TestControllers
 		}
 
 		[NonAction]
-		public override Task<IQueryResultDto<CoordinateInformationDto>> GetAll(QueryDto<CoordinateInformationFilterDto> filter,
-																				CancellationToken cancellationToken = default)
+		public override Task<IQueryResultDto<UserLocationDto>> GetAll(QueryDto<UserLocationFilterDto> filter,
+																	CancellationToken cancellationToken = default)
 		{
 			return base.GetAll(filter, cancellationToken);
 		}

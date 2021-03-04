@@ -1,9 +1,9 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Geo.Common.Domain;
-using Geo.Common.Dto.CoordinateInformation;
 using Geo.Common.Dto.Query;
 using Geo.Common.Dto.QueryResult;
+using Geo.Common.Dto.UserLocation;
 using Geo.QueryMapper;
 using Xunit;
 using Xunit.Abstractions;
@@ -22,7 +22,7 @@ namespace Geo.Information.Test.ProjectQueryTest
 		[Fact]
 		public async Task Get_Test()
 		{
-			var filter = new CoordinateInformationFilterDto();
+			var filter = new UserLocationFilterDto();
 			var timer = Stopwatch.StartNew();
 
 			var mapper = GetQueryDtoMapper();
@@ -37,7 +37,7 @@ namespace Geo.Information.Test.ProjectQueryTest
 		[Fact]
 		public async Task Get_With_Filter_Test()
 		{
-			var filter = new CoordinateInformationFilterDto
+			var filter = new UserLocationFilterDto
 			{
 				CountryContains = "EV"
 			};
@@ -53,16 +53,15 @@ namespace Geo.Information.Test.ProjectQueryTest
 			Assert.True(result.Count > 0);
 		}
 
-		private IQueryDtoMapper<CoordinateInformation, CoordinateInformationDto> GetQueryDtoMapper()
+		private IQueryDtoMapper<UserLocation, UserLocationDto> GetQueryDtoMapper()
 		{
-			return new QueryDtoMapper<CoordinateInformation, CoordinateInformationDto>(DbContext);
+			return new QueryDtoMapper<UserLocation, UserLocationDto>(DbContext);
 		}
 
-		private Task<IQueryResultDto<CoordinateInformationDto>> GetResultAsync(
-			IQueryDtoMapper<CoordinateInformation, CoordinateInformationDto> mapper,
-			CoordinateInformationFilterDto filter)
+		private Task<IQueryResultDto<UserLocationDto>> GetResultAsync(IQueryDtoMapper<UserLocation, UserLocationDto> mapper,
+																	UserLocationFilterDto filter)
 		{
-			var queryDto = new QueryDto<CoordinateInformationFilterDto>
+			var queryDto = new QueryDto<UserLocationFilterDto>
 			{
 				Filter = filter,
 				WithCount = true

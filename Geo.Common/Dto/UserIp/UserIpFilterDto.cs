@@ -1,6 +1,6 @@
-namespace Geo.Common.Dto.IpIntervalsInformation
+namespace Geo.Common.Dto.UserIp
 {
-	public class IpIntervalsInformationFilterDto : EntityDto
+	public class UserIpFilterDto : EntityDto
 	{
 		public string IpAddress { get; set; }
 

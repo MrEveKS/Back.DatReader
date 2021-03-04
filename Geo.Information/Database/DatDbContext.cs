@@ -14,11 +14,11 @@ namespace Geo.Information.Database
 			InitData();
 		}
 
-		public DbSet<Header> Headers { get; set; }
+		public DbSet<DatInfo> Headers { get; set; }
 
-		public DbSet<CoordinateInformation> CoordinateInformations { get; set; }
+		public DbSet<UserLocation> CoordinateInformations { get; set; }
 
-		public DbSet<IpIntervalsInformation> IpIntervalsInformations { get; set; }
+		public DbSet<UserIp> IpIntervalsInformations { get; set; }
 
 		private void InitData()
 		{
@@ -27,17 +27,17 @@ namespace Geo.Information.Database
 
 			if (!Headers.Any())
 			{
-				AddRange(badData.Head.Map<Header>());
+				AddRange(badData.DatInfo.Map<DatInfo>());
 			}
 
 			if (!IpIntervalsInformations.Any())
 			{
-				AddRange(badData.IpIntervalsInformations.Map<IpIntervalsInformation>());
+				AddRange(badData.UserIps.Map<UserIp>());
 			}
 
 			if (!CoordinateInformations.Any())
 			{
-				AddRange(badData.CoordinateInformations.Map<CoordinateInformation>());
+				AddRange(badData.UserLocations.Map<UserLocation>());
 			}
 
 			SaveChanges();

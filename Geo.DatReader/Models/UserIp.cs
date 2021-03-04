@@ -2,7 +2,7 @@ using System.IO;
 
 namespace Geo.DatReader.Models
 {
-	internal unsafe struct IpIntervalsInformation : IIpIntervalsInformation
+	internal unsafe struct UserIp : IUserIp
 	{
 		private const byte IpFromSize = 4;
 
@@ -26,7 +26,7 @@ namespace Geo.DatReader.Models
 
 		public uint LocationIndex => GetLocationIndex();
 
-		public IpIntervalsInformation(Stream stream)
+		public UserIp(Stream stream)
 		{
 			_ipFrom = null;
 			_ipTo = null;

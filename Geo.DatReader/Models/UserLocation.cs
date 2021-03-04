@@ -2,7 +2,7 @@ using System.IO;
 
 namespace Geo.DatReader.Models
 {
-	internal unsafe struct CoordinateInformation : ICoordinateInformation
+	internal unsafe struct UserLocation : IUserLocation
 	{
 		private const byte CountrySize = 8;
 
@@ -50,7 +50,7 @@ namespace Geo.DatReader.Models
 
 		public float Longitude => GetLongitude();
 
-		public CoordinateInformation(Stream stream)
+		public UserLocation(Stream stream)
 		{
 			_country = null;
 			_region = null;

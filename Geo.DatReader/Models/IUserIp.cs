@@ -1,6 +1,6 @@
 namespace Geo.DatReader.Models
 {
-	public interface IIpIntervalsInformation
+	public interface IUserIp
 	{
 		uint IpFrom { get; }
 

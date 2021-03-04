@@ -16,7 +16,7 @@ namespace Geo.DatReader.Test.ValidationTest
 		public async Task Name_NotEmpty_Test()
 		{
 			await _datDbDataSingleton.InitializeAsync();
-			var header = _datDbDataSingleton.Head;
+			var header = _datDbDataSingleton.DatInfo;
 
 			Assert.NotEmpty(header.Name);
 		}

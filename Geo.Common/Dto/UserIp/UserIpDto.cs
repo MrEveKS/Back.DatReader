@@ -1,6 +1,6 @@
-namespace Geo.Common.Dto.IpIntervalsInformation
+namespace Geo.Common.Dto.UserIp
 {
-	public class IpIntervalsInformationDto : EntityDto
+	public class UserIpDto : EntityDto
 	{
 		public uint? IpFrom { get; set; }
 

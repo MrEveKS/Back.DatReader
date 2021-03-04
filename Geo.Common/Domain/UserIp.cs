@@ -1,6 +1,6 @@
 namespace Geo.Common.Domain
 {
-	public class IpIntervalsInformation : DbEntity
+	public class UserIp : DbEntity
 	{
 		public uint IpFrom { get; set; }
 
