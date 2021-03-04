@@ -1,11 +1,14 @@
 using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using Back.DatReader.Controllers;
 using Back.DatReader.Extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+
+[assembly: InternalsVisibleTo("Back.DatReader.Test")]
 
 namespace Back.DatReader
 {
@@ -14,7 +17,7 @@ namespace Back.DatReader
 		private static IConfiguration Configuration { get; } = new ConfigurationBuilder()
 			.SetBasePath(Directory.GetCurrentDirectory())
 			.AddJsonFile("appsettings.json", false, true)
-			.AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? BuildConstants.Production}.json",
+			.AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? BuildConstants.PRODUCTION}.json",
 				true)
 			.Build();
 

@@ -39,7 +39,7 @@ namespace Back.DatReader.Extensions
 			sb.AppendLine($"{GetEmoji(logEvent)} {logEvent.RenderMessage()}");
 
 			if (logEvent.Exception == null) return new TelegramMessage(sb.ToString(), TelegramParseModeTypes.Html);
-			var envName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? BuildConstants.Unidentified;
+			var envName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? BuildConstants.UNIDENTIFIED;
 
 			sb.AppendLine($"<strong>Message</strong>: <i>{logEvent.Exception.Message}</i>");
 			sb.AppendLine($"<strong>ENV</strong>: <code>{envName}</code>\n");

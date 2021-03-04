@@ -1,16 +1,18 @@
+using System.Linq;
 using Back.DatReader.Constants;
-using Back.DatReader.Models;
+using Back.DatReader.Extensions;
+using Back.DatReader.Models.Domain;
 using File.DatReader;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 
 namespace Back.DatReader.Database
 {
-	public sealed class DatDbContext : CoreDbContext
+	public class DatDbContext : CoreDbContext
 	{
-		public DatDbContext(IWebHostEnvironment env, DbContextOptions options) : base(options)
+		public DatDbContext(DbContextOptions options) : base(options)
 		{
 			Database.EnsureCreated();
+			InitData();
 		}
 
 		public DbSet<Header> Headers { get; set; }
@@ -19,22 +21,32 @@ namespace Back.DatReader.Database
 
 		public DbSet<IpIntervalsInformation> IpIntervalsInformations { get; set; }
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		{
+			base.OnConfiguring(optionsBuilder);
+		}
+
+		private void InitData()
 		{
 			var badData = DatDbDataSingleton.Current;
+			badData.InitializeAsync().ConfigureAwait(AsyncConstants.CONTINUE_ON_CAPTURED_CONTEXT).GetAwaiter().GetResult();
 
-			badData.InitializeAsync().ConfigureAwait(AsyncConstants.ContinueOnCapturedContext).GetAwaiter().GetResult();
+			if (!Headers.Any())
+			{
+				AddRange(badData.Head.Map<Header>());
+			}
 
-			modelBuilder.Entity<Header>()
-				.HasData(badData.Head);
+			if (!IpIntervalsInformations.Any())
+			{
+				AddRange(badData.IpIntervalsInformations.Map<IpIntervalsInformation>());
+			}
 
-			modelBuilder.Entity<CoordinateInformation>()
-				.HasData(badData.CoordinateInformations);
+			if (!CoordinateInformations.Any())
+			{
+				AddRange(badData.CoordinateInformations.Map<CoordinateInformation>());
+			}
 
-			modelBuilder.Entity<IpIntervalsInformation>()
-				.HasData(badData.IpIntervalsInformations);
-
-			base.OnModelCreating(modelBuilder);
+			SaveChanges();
 		}
 	}
 }

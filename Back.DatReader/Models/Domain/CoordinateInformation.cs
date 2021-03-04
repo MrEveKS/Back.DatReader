@@ -1,8 +1,8 @@
 using File.DatReader.Models;
 
-namespace Back.DatReader.Models
+namespace Back.DatReader.Models.Domain
 {
-    public class CoordinateInformation : ICoordinateInformation
+    public class CoordinateInformation : DbEntity, ICoordinateInformation
 	{
         public string Country { get; set; }
         public string Region { get; set; }

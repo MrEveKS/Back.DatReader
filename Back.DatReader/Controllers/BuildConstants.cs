@@ -2,10 +2,10 @@ namespace Back.DatReader.Controllers
 {
 	public static class BuildConstants
 	{
-		public const string Development = "Development";
+		public const string DEVELOPMENT = "Development";
 
-		public const string Production = "Production";
+		public const string PRODUCTION = "Production";
 
-		public const string Unidentified = "Unidentified ENV";
+		public const string UNIDENTIFIED = "Unidentified ENV";
 	}
 }

@@ -23,7 +23,7 @@ namespace Back.DatReader
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-			var isDevelop = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == BuildConstants.Development;
+			var isDevelop = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == BuildConstants.DEVELOPMENT;
 
 			services.AddEntityFrameworkInMemoryDatabase();
 

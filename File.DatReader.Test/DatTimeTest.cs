@@ -29,7 +29,7 @@ namespace File.DatReader.Test
 
 				var time = timer.Elapsed.TotalMilliseconds;
 
-				_testOutputHelper.WriteLine($"time: {time: 0.000}");
+				_testOutputHelper.WriteLine($"time: {time: 0.0000} ms");
 			}
 		}
     }

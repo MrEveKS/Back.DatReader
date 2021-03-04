@@ -1,8 +1,8 @@
 using File.DatReader.Models;
 
-namespace Back.DatReader.Models
+namespace Back.DatReader.Models.Domain
 {
-    public class Header : IHead
+    public class Header : DbEntity, IHead
 	{
         public int Version { get; set; }
         public string Name { get; set; }
