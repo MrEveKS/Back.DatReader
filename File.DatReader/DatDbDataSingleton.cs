@@ -51,7 +51,7 @@ namespace File.DatReader
 				_isInProgress = true;
 			}
 
-			var filePath = Path.Combine(AppContext.BaseDirectory, DataConstants.DatFilePath);
+			var filePath = Path.Combine(AppContext.BaseDirectory, DataConstants.DAT_FILE_PATH);
 			await using var stream = _readerService.ReadAsync(filePath);
 
 			Head = new Head(stream);
