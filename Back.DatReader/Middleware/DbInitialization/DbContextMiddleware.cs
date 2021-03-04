@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Back.DatReader.Middleware.DbInitialization
 {
-	public static class DbInitializationUtils
+	public static class DbContextMiddleware
 	{
 		/// <summary>
 		/// Initialize Database

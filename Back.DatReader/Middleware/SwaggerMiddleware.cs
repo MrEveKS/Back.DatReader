@@ -10,7 +10,7 @@ namespace Back.DatReader.Middleware
 	/// <summary>
 	/// Initialize swagger services
 	/// </summary>
-	public static class AddSwaggerServices
+	public static class SwaggerMiddleware
 	{
 		/// <summary>
 		/// Use swagger on Configure

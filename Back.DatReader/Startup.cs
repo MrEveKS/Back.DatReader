@@ -7,6 +7,7 @@ using Back.DatReader.Errors;
 using Back.DatReader.Infrastructure.Logger;
 using Back.DatReader.Middleware;
 using Back.DatReader.Middleware.DbInitialization;
+using Back.DatReader.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -63,6 +64,7 @@ namespace Back.DatReader
 			services.AddSingleton(Configuration);
 			services.AddScoped<CoreDbContext, DatDbContext>();
 			services.AddScoped<IActionLogger, ActionLogger>();
+			services.AddScoped<IIpAddressConverterService, IpAddressConverterService>();
 			services.AddEntityServices();
 
 			if (isDevelop)

@@ -6,8 +6,12 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Back.DatReader.Middleware
 {
-	public static class AddEntitiesServices
+	public static class EntitiesMiddleware
 	{
+		/// <summary>
+		/// Add services for entities
+		/// </summary>
+		/// <param name="services"></param>
 		public static void AddEntityServices(this IServiceCollection services)
 		{
 			services.AddScoped(typeof(IQueryDtoMapper<,>), typeof(QueryDtoMapper<,>));

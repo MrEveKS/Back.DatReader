@@ -16,7 +16,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Back.DatReader.Database.QueryMapper
 {
-	/// <inheritdoc />
+	/// <inheritdoc cref="IQueryDtoMapper{TEntity,TResultDto}"/> />
 	public class QueryDtoMapper<TEntity, TResultDto> : IQueryDtoMapper<TEntity, TResultDto>
 		where TEntity : class, new()
 		where TResultDto : class
@@ -45,13 +45,13 @@ namespace Back.DatReader.Database.QueryMapper
 			_entityKeyPropertyName = GetPrimaryKey(typeof(TEntity));
 		}
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IQueryDtoMapper{TEntity,TResultDto}.Query"/> />
 		public IQueryable<TEntity> Query { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IQueryDtoMapper{TEntity,TResultDto}.QueryResult"/> />
 		public IQueryable<TResultDto> QueryResult { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IQueryDtoMapper{TEntity,TResultDto}.QueryDto{TFilter}"/> />
 		public virtual IQueryDtoMapper<TEntity, TResultDto> QueryDto<TFilter>(QueryDto<TFilter> queryDto, bool updateQuery)
 			where TFilter : class
 		{
@@ -62,7 +62,7 @@ namespace Back.DatReader.Database.QueryMapper
 			return this;
 		}
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IQueryDtoMapper{TEntity,TResultDto}.MapQueryAsync"/> />
 		public virtual async Task<IQueryResultDto<TResultDto>> MapQueryAsync(bool isSetProjection = true,
 																			CancellationToken cancellationToken = default)
 		{
@@ -88,7 +88,7 @@ namespace Back.DatReader.Database.QueryMapper
 			return result;
 		}
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IQueryDtoMapper{TEntity,TResultDto}.CustomizeProjection{T}"/> />
 		public IQueryDtoMapper<TEntity, TResultDto> CustomizeProjection<T>(Expression<Func<TResultDto, T>> selector,
 																			Expression<Func<TEntity, T>> setter)
 		{
@@ -108,7 +108,7 @@ namespace Back.DatReader.Database.QueryMapper
 			return this;
 		}
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IQueryDtoMapper{TEntity,TResultDto}.SetProjection{T}"/> />
 		public virtual IQueryable<TResultDto> SetProjection<T>(IQueryable<T> query, PropertyInfo entityPropertyInfo = null)
 		{
 			var entityParameter = Expression.Parameter(typeof(T));
@@ -193,7 +193,7 @@ namespace Back.DatReader.Database.QueryMapper
 			return query.Select(expression);
 		}
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IQueryDtoMapper{TEntity,TResultDto}.MapFilter{TFilter}"/> />
 		public virtual void MapFilter<TFilter>(bool updateQuery)
 			where TFilter : class
 		{
