@@ -33,6 +33,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Geo.Common\Geo.Common.csproj" />
 		<ProjectReference Include="..\Geo.DatReader\Geo.DatReader.csproj" />
+		<ProjectReference Include="..\Geo.Frontend\Geo.Frontend.csproj" />
 		<ProjectReference Include="..\Geo.QueryMapper\Geo.QueryMapper.csproj" />
 		<ProjectReference Include="..\Geo.Utility\Geo.Utility.csproj" />
 	</ItemGroup>
