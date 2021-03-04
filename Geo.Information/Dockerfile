@@ -7,9 +7,9 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
-COPY ["Geo.Information/Back.DatReader.csproj", "Geo.Information/"]
-COPY ["Geo.DatReader/File.DatReader.csproj", "Geo.DatReader/"]
-RUN dotnet restore "Back.DatReader/Back.DatReader.csproj"
+COPY ["Geo.Information/Geo.Information.csproj", "Geo.Information/"]
+COPY ["Geo.DatReader/Geo.DatReader.csproj", "Geo.DatReader/"]
+RUN dotnet restore "Geo.DatReader/Geo.DatReader.csproj"
 COPY . .
 WORKDIR "/src/Geo.Information"
 RUN dotnet build "Geo.Information.csproj" -c Release -o /app/build

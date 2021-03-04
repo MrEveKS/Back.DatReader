@@ -18,7 +18,7 @@ namespace Geo.DatReader.Test
 		public async Task DatDataReader_Time_Test()
 		{
 			var datDataReader = DatDbDataSingleton.Current;
-			datDataReader.SkipLock = true;
+			datDataReader.SkipNoInitialize = true;
 
 			for (var index = 0; index < 10; index++)
 			{

@@ -1,4 +1,5 @@
 using System.IO;
+using System.Threading.Tasks;
 using Geo.DatReader.Constants;
 using Geo.DatReader.Services;
 using Xunit;
@@ -7,18 +8,18 @@ namespace Geo.DatReader.Test
 {
 	public class BatReaderServiceTest
 	{
-		private readonly IBatReaderService _service;
+		private readonly IFileReaderService _service;
 
 		public BatReaderServiceTest()
 		{
-			_service = new BatReaderService();
+			_service = new FileReaderService();
 		}
 
 		[Fact]
-		public void Read_NotNull_Test()
+		public async Task Read_NotNull_Test()
 		{
 			var path = Path.Combine(Directory.GetCurrentDirectory(), DataConstants.DAT_FILE_PATH);
-			var result = _service.ReadAsync(path);
+			await using var result = _service.Read(path);
 
 			Assert.NotNull(result);
 		}

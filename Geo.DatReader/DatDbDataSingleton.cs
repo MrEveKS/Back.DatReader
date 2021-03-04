@@ -15,21 +15,25 @@ namespace Geo.DatReader
 {
 	public class DatDbDataSingleton
 	{
-		private static bool _isInProgress;
+		private static volatile bool _isInProgress;
 
 		private static readonly object Locker = new();
 
 		private static readonly Lazy<DatDbDataSingleton> LazyInstance =
 			new(() => new DatDbDataSingleton(), LazyThreadSafetyMode.ExecutionAndPublication);
 
-		private readonly IBatReaderService _readerService;
+		private readonly IFileReaderService _readerService;
 
 		private DatDbDataSingleton()
 		{
-			_readerService = new BatReaderService();
+			_readerService = new FileReaderService();
 		}
 
-		internal bool SkipLock { private get; set; }
+		/// <summary>
+		/// Initialize again for testing
+		/// </summary>
+		/// <returns> test property </returns>
+		internal bool SkipNoInitialize { private get; set; }
 
 		public static DatDbDataSingleton Current => LazyInstance.Value;
 
@@ -43,7 +47,7 @@ namespace Geo.DatReader
 		{
 			lock (Locker)
 			{
-				if (_isInProgress && !SkipLock)
+				if (_isInProgress && !SkipNoInitialize)
 				{
 					return;
 				}
@@ -52,7 +56,7 @@ namespace Geo.DatReader
 			}
 
 			var filePath = Path.Combine(AppContext.BaseDirectory, DataConstants.DAT_FILE_PATH);
-			await using var stream = _readerService.ReadAsync(filePath);
+			await using var stream = _readerService.Read(filePath);
 
 			Head = new Head(stream);
 			var records = Head.Records;
