@@ -3,8 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
-	mode: 'production',
-	entry: './src/main.js',
+	mode: 'development',
+	entry: './src/main.jsx',
 	output: {
 		path: path.resolve(__dirname, 'wwwroot'),
 		filename: '[name].[contenthash].bundle.js',
@@ -23,7 +23,11 @@ module.exports = {
 		rules: [
 			{test: /\.svg$/, use: 'svg-inline-loader'},
 			{test: /\.css$/, use: ['style-loader', 'css-loader']},
-			{test: /\.(js)$/, use: 'babel-loader'}
+			{
+				test: /\.(js[x]?)$/,
+				exclude: /(node_modules|bower_components)/,
+				use: 'babel-loader'
+			},
 		]
 	},
 	optimization: {
