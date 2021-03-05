@@ -14,6 +14,9 @@ module.exports = {
 		new webpack.ProgressPlugin(),
 		new HtmlWebpackPlugin({
 			title: 'Geo Information',
+			template: path.resolve(__dirname, './src/index.html'),
+			filename: 'index.html',
+			minify: false
 		})
 	],
 	module: {

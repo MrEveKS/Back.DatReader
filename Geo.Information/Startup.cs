@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using Geo.Common.Constants;
@@ -72,6 +73,11 @@ namespace Geo.Information
 				services.AddSwagger();
 			}
 
+			services.AddSpaStaticFiles(configuration =>
+			{
+				configuration.RootPath = Path.Combine(AppContext.BaseDirectory, "wwwroot");
+			});
+
 			services.AddMvcCore()
 				.AddApiExplorer();
 		}
@@ -79,7 +85,7 @@ namespace Geo.Information
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
 			var isDevelop = env.IsDevelopment();
-			app.InitializeDatabase<DatDbContext>();
+			// app.InitializeDatabase<DatDbContext>();
 
 			if (isDevelop)
 			{
@@ -104,6 +110,7 @@ namespace Geo.Information
 					break;
 			}
 
+			app.UseSpaStaticFiles();
 			app.UseSerilogRequestLogging();
 			app.UseRouting();
 
@@ -136,6 +143,11 @@ namespace Geo.Information
 				await context.HttpContext.Response
 					.WriteAsync(response)
 					.ConfigureAwait(AsyncConstants.CONTINUE_ON_CAPTURED_CONTEXT);
+			});
+
+			app.UseSpa(spa =>
+			{
+				spa.Options.SourcePath = Path.Combine(AppContext.BaseDirectory, "wwwroot");
 			});
 		}
 	}

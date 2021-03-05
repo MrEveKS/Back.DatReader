@@ -10,19 +10,24 @@
 	</Target>
 
 	<ItemGroup>
-	  <Compile Remove="node_modules\**" />
-	  <EmbeddedResource Remove="node_modules\**" />
-	  <None Remove="node_modules\**" />
+		<Compile Remove="node_modules\**" />
+		<EmbeddedResource Remove="node_modules\**" />
+		<None Remove="node_modules\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Remove="*.*" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Compile Include="wwwroot\*.*">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="wwwroot\" />
+		<Compile Remove="wwwroot\*.*" />
+		<Resource Include="wwwroot\*.*" />
+		<None Update="wwwroot\*.*">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 
 </Project>
