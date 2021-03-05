@@ -21,7 +21,8 @@ namespace Geo.Information.Controllers.TestControllers
 			var filter = new QueryDto<UserLocationFilterDto>
 			{
 				Filter = new UserLocationFilterDto
-					{ CityEqual = city }
+					{ CityEqual = city },
+				WithCount = true
 			};
 
 			return GetAll(filter, cancellationToken);

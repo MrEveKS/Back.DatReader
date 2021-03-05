@@ -78,14 +78,19 @@ namespace Geo.Information
 				configuration.RootPath = Path.Combine(AppContext.BaseDirectory, "wwwroot");
 			});
 
-			services.AddMvcCore()
+			services.AddMvcCore(options =>
+				{
+					options.RespectBrowserAcceptHeader = true;
+					options.EnableEndpointRouting = false;
+				})
 				.AddApiExplorer();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
 			var isDevelop = env.IsDevelopment();
-			// app.InitializeDatabase<DatDbContext>();
+
+			app.InitializeDatabase<DatDbContext>();
 
 			if (isDevelop)
 			{
@@ -110,25 +115,16 @@ namespace Geo.Information
 					break;
 			}
 
+			app.UseStaticFiles();
 			app.UseSpaStaticFiles();
 			app.UseSerilogRequestLogging();
+
 			app.UseRouting();
 
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllers();
 			});
-
-			app.Map("/error",
-				ap => ap.Run(async context =>
-				{
-					context.Response.ContentType = "application/json";
-					var response = JsonConvert.SerializeObject(new ErrorResponse("Exception", context.Response.StatusCode));
-
-					await context.Response
-						.WriteAsync(response)
-						.ConfigureAwait(AsyncConstants.CONTINUE_ON_CAPTURED_CONTEXT);
-				}));
 
 			app.UseStatusCodePages(async context =>
 			{
@@ -149,6 +145,26 @@ namespace Geo.Information
 			{
 				spa.Options.SourcePath = Path.Combine(AppContext.BaseDirectory, "wwwroot");
 			});
+
+			app.Map("/:regex(^(ip)|(city).*$",
+				ap =>
+				{
+					ap.UseSpa(spa =>
+					{
+						spa.Options.SourcePath = Path.Combine(AppContext.BaseDirectory, "wwwroot");
+					});
+				});
+
+			app.Map("/error",
+				ap => ap.Run(async context =>
+				{
+					context.Response.ContentType = "application/json";
+					var response = JsonConvert.SerializeObject(new ErrorResponse("Exception", context.Response.StatusCode));
+
+					await context.Response
+						.WriteAsync(response)
+						.ConfigureAwait(AsyncConstants.CONTINUE_ON_CAPTURED_CONTEXT);
+				}));
 		}
 	}
 }

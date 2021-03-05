@@ -11,7 +11,7 @@ namespace Geo.Information.Database
 	{
 		public DatDbContext(DbContextOptions options) : base(options)
 		{
-			InitData();
+			// InitData();
 		}
 
 		public DbSet<DatInfo> Headers { get; set; }

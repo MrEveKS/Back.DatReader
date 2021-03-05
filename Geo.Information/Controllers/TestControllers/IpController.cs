@@ -21,7 +21,8 @@ namespace Geo.Information.Controllers.TestControllers
 			var filter = new QueryDto<UserIpFilterDto>
 			{
 				Filter = new UserIpFilterDto
-					{ IpAddress = ip }
+					{ IpAddress = ip },
+				WithCount = true
 			};
 
 			return GetAll(filter, cancellationToken);
