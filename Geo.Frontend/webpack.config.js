@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
@@ -12,6 +13,11 @@ module.exports = {
 	},
 	plugins: [
 		new webpack.ProgressPlugin(),
+		new CopyWebpackPlugin({
+			patterns: [
+				{ from: './src/static/favicon.ico', to: path.resolve(__dirname, 'wwwroot/favicon.ico') },
+			]
+		}),
 		new HtmlWebpackPlugin({
 			title: 'Geo Information',
 			template: path.resolve(__dirname, './src/index.html'),
@@ -42,5 +48,10 @@ module.exports = {
 				},
 			},
 		},
+	},
+	devServer: {
+		contentBase: path.join(__dirname, 'dist'),
+		compress: true,
+		port: 9000,
 	},
 }

@@ -1,11 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
 		<RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
 	</PropertyGroup>
 
-	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+	<Target Name="SpicNSpan"  AfterTargets="Clean">
+		<RemoveDir Directories="wwwroot" />
+	</Target>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
 		<Exec Command="npm run build" />
 	</Target>
 

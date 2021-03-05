@@ -1,15 +1,25 @@
-import React, { Component } from "react";
+import React from 'react';
+import {BrowserRouter as Router, Route, Switch,Redirect} from "react-router-dom";
 
-import '../styles/App.css';
+import AppBody from "./AppBody.jsx";
 
-class App extends Component {
-	render() {
-		return (
-			<div>
-				<h1>App!</h1>
-			</div>
-		);
-	}
+const Ip = () => {
+	return <AppBody {...{search: 'ip'}} />
+}
+
+const Locations = () => {
+	return <AppBody {...{search: 'locations'}} />
+}
+
+const App = () => {
+	return (<Router>
+		<Redirect from="/" to="/ip/location" />
+		<Switch>
+			<Route exact path="/" component={Ip}/>
+			<Route exact path="/ip/location" component={Ip}/>
+			<Route exact path="/city/locations" component={Locations}/>
+		</Switch>
+	</Router>)
 }
 
 export default App;
