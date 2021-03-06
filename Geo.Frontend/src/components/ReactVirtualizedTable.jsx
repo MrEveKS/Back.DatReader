@@ -37,7 +37,7 @@ for (let i = 0; i < 2000; i += 1) {
 }
 
 function MuiReactVirtualizedTable(props) {
-	const {classes} = props;
+	const {classes, placeholder, ariaLabel} = props;
 	const [search, setSearch] = React.useState('');
 
 	const searchValue = () => {
@@ -49,6 +49,8 @@ function MuiReactVirtualizedTable(props) {
 	return (
 		<Paper className={classes.root}>
 			<SearchBar
+				placeholder={placeholder}
+				ariaLabel={ariaLabel}
 				value={search}
 				onChange={(searchVal) => setSearch(searchVal)}
 				onSearch={() => searchValue(search)}

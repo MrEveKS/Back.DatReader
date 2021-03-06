@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Geo.Information.Controllers.BaseControllers
 {
-	[Route("api/[controller]/[action]")]
 	[Produces("application/json")]
 	public abstract class BaseController<TEntityDto, TEntityFilterDto> : Controller
 		where TEntityDto : EntityDto

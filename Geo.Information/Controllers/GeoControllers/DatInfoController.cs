@@ -4,7 +4,7 @@ using Geo.Information.Services.HeaderServices;
 
 namespace Geo.Information.Controllers.GeoControllers
 {
-	public class DatInfoController : BaseController<DatInfoDto, DatInfoFilterDto>
+	public class DatInfoController : BaseApiController<DatInfoDto, DatInfoFilterDto>
 	{
 		public DatInfoController(IDatInfoService service) : base(service)
 		{

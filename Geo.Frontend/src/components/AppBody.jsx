@@ -1,4 +1,7 @@
 import React from 'react';
+
+import {Link} from "react-router-dom";
+
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,14 +14,14 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import {makeStyles, useTheme} from '@material-ui/core/styles';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import DnsIcon from '@material-ui/icons/Dns';
 import LocationSearchingIcon from '@material-ui/icons/LocationSearching';
 
-import ReactVirtualizedTable from "./ReactVirtualizedTable.jsx";
+import ReactVirtualizedTable from './ReactVirtualizedTable.jsx';
 
 import "../styles/main.css";
 
@@ -55,16 +58,21 @@ const useStyles = makeStyles((theme) => ({
 		flexGrow: 1,
 		padding: theme.spacing(1),
 	},
-	test: {
-		minHeight: theme.mixins.toolbar.minHeight
+	active: {
+		backgroundColor: '#f1f1f1'
 	}
 }));
 
 function AppBody(props) {
-	const { window } = props;
+	const {window} = props;
 	const classes = useStyles();
 	const theme = useTheme();
 	const [mobileOpen, setMobileOpen] = React.useState(false);
+	const searchIp = props.search === 'ip';
+	const bodyProps = {
+		placeholder: searchIp ? 'Поиска гео-информации' : 'Поиск списка местоположений',
+		ariaLabel: searchIp ? 'поиска гео-информации' : 'поиск списка местоположений'
+	}
 
 	const handleDrawerToggle = () => {
 		setMobileOpen(!mobileOpen);
@@ -72,15 +80,18 @@ function AppBody(props) {
 
 	const drawer = (
 		<div>
-			<div className={classes.toolbar} />
-			<Divider />
+			<div className={classes.toolbar}/>
+			<Divider/>
 			<List>
-				{['Гео-информация', 'Местоположения'].map((text, index) => (
-					<ListItem button key={text}>
-						<ListItemIcon>{index % 2 === 0 ? <DnsIcon /> : <LocationSearchingIcon />}</ListItemIcon>
-						<ListItemText primary={text} />
-					</ListItem>
-				))}
+				<ListItem button component={Link} to='ip' className={searchIp ? classes.active : ''}>
+					<ListItemIcon> <DnsIcon/> </ListItemIcon>
+					<ListItemText primary="Гео-информация"/>
+				</ListItem>
+				<ListItem button component={Link} to='city'
+						  className={!searchIp ? classes.active : ''}>
+					<ListItemIcon> <LocationSearchingIcon/> </ListItemIcon>
+					<ListItemText primary="Местоположения"/>
+				</ListItem>
 			</List>
 		</div>
 	);
@@ -89,7 +100,7 @@ function AppBody(props) {
 
 	return (
 		<div className={classes.root}>
-			<CssBaseline />
+			<CssBaseline/>
 			<AppBar position="fixed" className={classes.appBar}>
 				<Toolbar>
 					<IconButton
@@ -99,7 +110,7 @@ function AppBody(props) {
 						onClick={handleDrawerToggle}
 						className={classes.menuButton}
 					>
-						<MenuIcon />
+						<MenuIcon/>
 					</IconButton>
 					<Typography variant="h6" noWrap>
 						Responsive drawer
@@ -138,7 +149,7 @@ function AppBody(props) {
 			</nav>
 			<main className={classes.content}>
 
-				<ReactVirtualizedTable/>
+				<ReactVirtualizedTable {...bodyProps} />
 
 			</main>
 		</div>
@@ -146,10 +157,6 @@ function AppBody(props) {
 }
 
 AppBody.propTypes = {
-	/**
-	 * Injected by the documentation to work in an iframe.
-	 * You won't need it on your project.
-	 */
 	window: PropTypes.func,
 };
 

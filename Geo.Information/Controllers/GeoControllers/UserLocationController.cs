@@ -4,7 +4,7 @@ using Geo.Information.Services.UserLocationServices;
 
 namespace Geo.Information.Controllers.GeoControllers
 {
-	public class UserLocationController : BaseController<UserLocationDto, UserLocationFilterDto>
+	public class UserLocationController : BaseApiController<UserLocationDto, UserLocationFilterDto>
 	{
 		public UserLocationController(IUserLocationService service) : base(service)
 		{

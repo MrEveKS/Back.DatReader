@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Geo.Information.Controllers.TestControllers
 {
-	public class IpController : BaseController<UserIpDto, UserIpFilterDto>
+	public class IpController : BaseSpaController<UserIpDto, UserIpFilterDto>
 	{
 		public IpController(IUserIpService service) : base(service)
 		{

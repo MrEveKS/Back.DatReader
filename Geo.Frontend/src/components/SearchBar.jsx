@@ -32,6 +32,7 @@ const SearchBar = (props) => {
 	const classes = useStyles();
 	const [clear, setClear] = useState(false);
 	const searchInput = useRef(null);
+	const { placeholder, ariaLabel } = props;
 
 	useEffect(() => {
 		setClear(!!searchInput.current?.value);
@@ -64,8 +65,8 @@ const SearchBar = (props) => {
 		<Paper component="form" className={classes.root}>
 			<InputBase
 				className={classes.input}
-				placeholder="Поиск гео-информации по IP"
-				inputProps={{'aria-label': 'поиск гео-информации по IP'}}
+				placeholder={placeholder}
+				inputProps={{'aria-label': ariaLabel}}
 				onKeyPress={keyPress}
 				defaultValue={''}
 				inputRef={searchInput}

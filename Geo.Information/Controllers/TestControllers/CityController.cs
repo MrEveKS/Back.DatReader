@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Geo.Information.Controllers.TestControllers
 {
-	public class CityController : BaseController<UserLocationDto, UserLocationFilterDto>
+	public class CityController : BaseSpaController<UserLocationDto, UserLocationFilterDto>
 	{
 		public CityController(IUserLocationService service) : base(service)
 		{

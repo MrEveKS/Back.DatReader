@@ -115,16 +115,10 @@ namespace Geo.Information
 					break;
 			}
 
-			app.UseStaticFiles();
 			app.UseSpaStaticFiles();
 			app.UseSerilogRequestLogging();
 
 			app.UseRouting();
-
-			app.UseEndpoints(endpoints =>
-			{
-				endpoints.MapControllers();
-			});
 
 			app.UseStatusCodePages(async context =>
 			{
@@ -141,20 +135,6 @@ namespace Geo.Information
 					.ConfigureAwait(AsyncConstants.CONTINUE_ON_CAPTURED_CONTEXT);
 			});
 
-			app.UseSpa(spa =>
-			{
-				spa.Options.SourcePath = Path.Combine(AppContext.BaseDirectory, "wwwroot");
-			});
-
-			app.Map("/:regex(^(ip)|(city).*$",
-				ap =>
-				{
-					ap.UseSpa(spa =>
-					{
-						spa.Options.SourcePath = Path.Combine(AppContext.BaseDirectory, "wwwroot");
-					});
-				});
-
 			app.Map("/error",
 				ap => ap.Run(async context =>
 				{
@@ -165,6 +145,12 @@ namespace Geo.Information
 						.WriteAsync(response)
 						.ConfigureAwait(AsyncConstants.CONTINUE_ON_CAPTURED_CONTEXT);
 				}));
+
+			app.UseEndpoints(endpoints =>
+			{
+				endpoints.MapControllers();
+				endpoints.MapFallbackToController("Index", "Home");
+			});
 		}
 	}
 }
