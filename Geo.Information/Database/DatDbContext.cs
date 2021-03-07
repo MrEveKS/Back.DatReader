@@ -1,4 +1,3 @@
-using System.Linq;
 using Geo.Common.Constants;
 using Geo.Common.Domain;
 using Geo.DatReader;
@@ -9,9 +8,11 @@ namespace Geo.Information.Database
 {
 	public sealed class DatDbContext : DbContext
 	{
-		public DatDbContext(DbContextOptions options) : base(options)
+		private readonly IDatDbData _datDbData;
+
+		public DatDbContext(IDatDbData datDbData, DbContextOptions options) : base(options)
 		{
-			// InitData();
+			_datDbData = datDbData;
 		}
 
 		public DbSet<DatInfo> Headers { get; set; }
@@ -20,27 +21,20 @@ namespace Geo.Information.Database
 
 		public DbSet<UserIp> IpIntervalsInformations { get; set; }
 
-		private void InitData()
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			var badData = DatDbDataSingleton.Current;
-			badData.InitializeAsync().ConfigureAwait(AsyncConstants.CONTINUE_ON_CAPTURED_CONTEXT).GetAwaiter().GetResult();
+			_datDbData.InitializeAsync().ConfigureAwait(AsyncConstants.CONTINUE_ON_CAPTURED_CONTEXT).GetAwaiter().GetResult();
 
-			if (!Headers.Any())
-			{
-				AddRange(badData.DatInfo.Map<DatInfo>());
-			}
+			modelBuilder.Entity<DatInfo>()
+				.HasData(_datDbData.DatInfo.Map<DatInfo>());
 
-			if (!IpIntervalsInformations.Any())
-			{
-				AddRange(badData.UserIps.Map<UserIp>());
-			}
+			modelBuilder.Entity<UserLocation>()
+				.HasData(_datDbData.UserLocations.Map<UserLocation>());
 
-			if (!CoordinateInformations.Any())
-			{
-				AddRange(badData.UserLocations.Map<UserLocation>());
-			}
+			modelBuilder.Entity<UserIp>()
+				.HasData(_datDbData.UserIps.Map<UserIp>());
 
-			SaveChanges();
+			base.OnModelCreating(modelBuilder);
 		}
 	}
 }

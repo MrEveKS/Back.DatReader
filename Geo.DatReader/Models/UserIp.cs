@@ -20,14 +20,17 @@ namespace Geo.DatReader.Models
 
 		private uint? _locationIndex;
 
+		public int Id { get; init; }
+
 		public uint IpFrom => GetIpFrom();
 
 		public uint IpTo => GetIpTo();
 
 		public uint LocationIndex => GetLocationIndex();
 
-		public UserIp(Stream stream)
+		public UserIp(Stream stream, int id)
 		{
+			Id = id;
 			_ipFrom = null;
 			_ipTo = null;
 			_locationIndex = null;

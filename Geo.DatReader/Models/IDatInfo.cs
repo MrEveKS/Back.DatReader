@@ -2,6 +2,8 @@ namespace Geo.DatReader.Models
 {
 	public interface IDatInfo
 	{
+		public int Id { get; }
+
 		int Version { get; }
 
 		string Name { get; }

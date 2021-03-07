@@ -1,3 +1,4 @@
+using Geo.DatReader;
 using Geo.Information.Database;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,7 +18,7 @@ namespace Geo.Information.Test.ProjectQueryTest.Database
 					.UseInMemoryDatabase("test_DatDbContext")
 					.Options;
 
-				dbContext = new DatDbContext(options);
+				dbContext = new DatDbContext(new DatDbData(), options);
 				dbContext.Database.EnsureCreated();
 			}
 

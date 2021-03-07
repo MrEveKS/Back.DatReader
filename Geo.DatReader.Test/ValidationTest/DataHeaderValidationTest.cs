@@ -5,18 +5,18 @@ namespace Geo.DatReader.Test.ValidationTest
 {
 	public class DataHeaderValidationTest
 	{
-		private readonly DatDbDataSingleton _datDbDataSingleton;
+		private readonly DatDbData _datDbData;
 
 		public DataHeaderValidationTest()
 		{
-			_datDbDataSingleton = DatDbDataSingleton.Current;
+			_datDbData = new DatDbData();
 		}
 
 		[Fact]
 		public async Task Name_NotEmpty_Test()
 		{
-			await _datDbDataSingleton.InitializeAsync();
-			var header = _datDbDataSingleton.DatInfo;
+			await _datDbData.InitializeAsync();
+			var header = _datDbData.DatInfo;
 
 			Assert.NotEmpty(header.Name);
 		}

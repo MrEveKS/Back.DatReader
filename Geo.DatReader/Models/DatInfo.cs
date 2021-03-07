@@ -44,6 +44,8 @@ namespace Geo.DatReader.Models
 
 		public int Version => GetVersion();
 
+		public int Id { get; init; }
+
 		public string Name => GetName();
 
 		public ulong Timestamp => GetTimestamp();
@@ -56,8 +58,9 @@ namespace Geo.DatReader.Models
 
 		public uint OffsetLocations => GetOffsetLocations();
 
-		public DatInfo(Stream stream)
+		public DatInfo(Stream stream, int id)
 		{
+			Id = id;
 			_version = null;
 			_name = null;
 			_timestamp = null;

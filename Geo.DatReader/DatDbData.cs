@@ -3,7 +3,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
-using System.Threading;
 using System.Threading.Tasks;
 using Geo.DatReader.Constants;
 using Geo.DatReader.Models;
@@ -13,18 +12,13 @@ using Geo.DatReader.Services;
 
 namespace Geo.DatReader
 {
-	public class DatDbDataSingleton
+	public class DatDbData : IDisposable, IDatDbData
 	{
-		private static volatile bool _isInProgress;
-
-		private static readonly object Locker = new();
-
-		private static readonly Lazy<DatDbDataSingleton> LazyInstance =
-			new(() => new DatDbDataSingleton(), LazyThreadSafetyMode.ExecutionAndPublication);
-
 		private readonly IFileReaderService _readerService;
 
-		private DatDbDataSingleton()
+		private bool _disposedValue;
+
+		public DatDbData()
 		{
 			_readerService = new FileReaderService();
 		}
@@ -35,8 +29,6 @@ namespace Geo.DatReader
 		/// <returns> test property </returns>
 		internal bool SkipNoInitialize { private get; set; }
 
-		public static DatDbDataSingleton Current => LazyInstance.Value;
-
 		public IReadOnlyCollection<IUserLocation> UserLocations { get; private set; }
 
 		public IDatInfo DatInfo { get; private set; }
@@ -45,37 +37,57 @@ namespace Geo.DatReader
 
 		public async Task InitializeAsync()
 		{
-			lock (Locker)
-			{
-				if (_isInProgress && !SkipNoInitialize)
-				{
-					return;
-				}
-
-				_isInProgress = true;
-			}
-
 			var filePath = Path.Combine(AppContext.BaseDirectory, DataConstants.DAT_FILE_PATH);
 			await using var stream = _readerService.Read(filePath);
 
-			DatInfo = new DatInfo(stream);
+			DatInfo = new DatInfo(stream, 1);
 			var records = DatInfo.Records;
 
 			var ipIntervalsInformations = new IUserIp[records];
 			var coordinateInformations = new IUserLocation[records];
 
-			for (var i = 0; i < records; i++)
+			for (var index = 0; index < records; index++)
 			{
-				ipIntervalsInformations[i] = new UserIp(stream);
+				ipIntervalsInformations[index] = new UserIp(stream, index + 1);
 			}
 
-			for (var i = 0; i < records; i++)
+			for (var index = 0; index < records; index++)
 			{
-				coordinateInformations[i] = new UserLocation(stream);
+				coordinateInformations[index] = new UserLocation(stream, index + 1);
 			}
 
 			UserIps = new ConcurrentQueue<IUserIp>(ipIntervalsInformations);
 			UserLocations = new ConcurrentQueue<IUserLocation>(coordinateInformations);
+		}
+
+		void IDisposable.Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		private void Dispose(bool disposing)
+		{
+			if (_disposedValue)
+			{
+				return;
+			}
+
+			if (disposing)
+			{
+				UserLocations = null;
+				DatInfo = null;
+				UserIps = null;
+
+				GC.Collect(GC.MaxGeneration);
+			}
+
+			_disposedValue = true;
+		}
+
+		~DatDbData()
+		{
+			Dispose(false);
 		}
 	}
 }

@@ -5,18 +5,18 @@ namespace Geo.DatReader.Test.ValidationTest
 {
 	public class DataCoordinateValidationTest
 	{
-		private readonly DatDbDataSingleton _datDbDataSingleton;
+		private readonly DatDbData _datDbData;
 
 		public DataCoordinateValidationTest()
 		{
-			_datDbDataSingleton = DatDbDataSingleton.Current;
+			_datDbData = new DatDbData();
 		}
 
 		[Fact]
 		public async Task Data_Not_Empty()
 		{
-			await _datDbDataSingleton.InitializeAsync();
-			var coordinateInformations = _datDbDataSingleton.UserLocations;
+			await _datDbData.InitializeAsync();
+			var coordinateInformations = _datDbData.UserLocations;
 
 			Assert.True(coordinateInformations.Count > 0);
 		}
@@ -24,8 +24,8 @@ namespace Geo.DatReader.Test.ValidationTest
 		[Fact]
 		public async Task All_Country_Valid_Name()
 		{
-			await _datDbDataSingleton.InitializeAsync();
-			var coordinateInformations = _datDbDataSingleton.UserLocations;
+			await _datDbData.InitializeAsync();
+			var coordinateInformations = _datDbData.UserLocations;
 
 			Assert.All(coordinateInformations, v => v.Country.StartsWith("cou_"));
 		}
@@ -33,8 +33,8 @@ namespace Geo.DatReader.Test.ValidationTest
 		[Fact]
 		public async Task All_City_Valid_Name()
 		{
-			await _datDbDataSingleton.InitializeAsync();
-			var coordinateInformations = _datDbDataSingleton.UserLocations;
+			await _datDbData.InitializeAsync();
+			var coordinateInformations = _datDbData.UserLocations;
 
 			Assert.All(coordinateInformations, v => v.City.StartsWith("cit_"));
 		}
@@ -42,8 +42,8 @@ namespace Geo.DatReader.Test.ValidationTest
 		[Fact]
 		public async Task All_Region_Valid_Name()
 		{
-			await _datDbDataSingleton.InitializeAsync();
-			var coordinateInformations = _datDbDataSingleton.UserLocations;
+			await _datDbData.InitializeAsync();
+			var coordinateInformations = _datDbData.UserLocations;
 
 			Assert.All(coordinateInformations, v => v.Region.StartsWith("reg_"));
 		}
@@ -51,8 +51,8 @@ namespace Geo.DatReader.Test.ValidationTest
 		[Fact]
 		public async Task All_Postal_Valid_Name()
 		{
-			await _datDbDataSingleton.InitializeAsync();
-			var coordinateInformations = _datDbDataSingleton.UserLocations;
+			await _datDbData.InitializeAsync();
+			var coordinateInformations = _datDbData.UserLocations;
 
 			Assert.All(coordinateInformations, v => v.Postal.StartsWith("pos_"));
 		}
@@ -60,8 +60,8 @@ namespace Geo.DatReader.Test.ValidationTest
 		[Fact]
 		public async Task All_Organization_Valid_Name()
 		{
-			await _datDbDataSingleton.InitializeAsync();
-			var coordinateInformations = _datDbDataSingleton.UserLocations;
+			await _datDbData.InitializeAsync();
+			var coordinateInformations = _datDbData.UserLocations;
 
 			Assert.All(coordinateInformations, v => v.Organization.StartsWith("org_"));
 		}

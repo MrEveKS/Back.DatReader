@@ -2,6 +2,8 @@ namespace Geo.DatReader.Models
 {
 	public interface IUserLocation
 	{
+		public int Id { get; }
+
 		string Country { get; }
 
 		string Region { get; }

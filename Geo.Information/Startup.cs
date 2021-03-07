@@ -3,6 +3,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using Geo.Common.Constants;
+using Geo.DatReader;
 using Geo.Information.Database;
 using Geo.Information.Errors;
 using Geo.Information.Infrastructure.Logger;
@@ -63,6 +64,7 @@ namespace Geo.Information
 			});
 
 			services.AddSingleton(Configuration);
+			services.AddScoped<IDatDbData, DatDbData>();
 			services.AddScoped<DbContext, DatDbContext>();
 			services.AddScoped<IActionLogger, ActionLogger>();
 			services.AddScoped<IIpAddressConverterService, IpAddressConverterService>();

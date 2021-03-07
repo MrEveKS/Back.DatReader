@@ -36,6 +36,8 @@ namespace Geo.DatReader.Models
 
 		private float? _longitude;
 
+		public int Id { get; init; }
+
 		public string Country => GetCountry();
 
 		public string Region => GetRegion();
@@ -50,8 +52,9 @@ namespace Geo.DatReader.Models
 
 		public float Longitude => GetLongitude();
 
-		public UserLocation(Stream stream)
+		public UserLocation(Stream stream, int id)
 		{
+			Id = id;
 			_country = null;
 			_region = null;
 			_postal = null;
