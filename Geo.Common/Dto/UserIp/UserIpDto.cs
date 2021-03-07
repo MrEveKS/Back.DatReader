@@ -6,6 +6,6 @@ namespace Geo.Common.Dto.UserIp
 
 		public uint? IpTo { get; set; }
 
-		public uint? LocationIndex { get; set; }
+		public uint? UserLocationId { get; set; }
 	}
 }
