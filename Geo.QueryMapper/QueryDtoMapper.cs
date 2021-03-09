@@ -154,7 +154,8 @@ namespace Geo.QueryMapper
 					}
 
 					entityProperty =
-						properties.FirstOrDefault(e => e.Name.ToLower() == listPropertyInfo.Name.ToLower());
+						properties.FirstOrDefault(e =>
+							string.Equals(e.Name, listPropertyInfo.Name, StringComparison.CurrentCultureIgnoreCase));
 
 					if (entityProperty == null)
 					{
@@ -482,6 +483,16 @@ namespace Geo.QueryMapper
 				case EntityRestrictions.LessEqual:
 					ExpressionExtension.ConvertToCommonNullable(ref property, ref value);
 					op = Expression.LessThanOrEqual(property, value);
+
+					break;
+
+				case EntityRestrictions.In:
+				{
+					var elementType = filterValue.GetType().GetElementType();
+
+					op = Expression.Equal(Expression.Call(typeof(Enumerable), "Contains", new[] { elementType }, value, property),
+						Expression.Constant(true));
+				}
 
 					break;
 			}

@@ -7,5 +7,7 @@ namespace Geo.QueryMapper.Test.Models
 		public string Name { get; set; }
 
 		public int? GroupId { get; set; }
+
+		public OrganizationGroup Group { get; set; }
 	}
 }

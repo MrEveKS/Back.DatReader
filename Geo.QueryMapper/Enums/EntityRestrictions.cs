@@ -33,6 +33,11 @@ namespace Geo.QueryMapper.Enums
 		/// <summary>
 		/// Less or Equal
 		/// </summary>
-		LessEqual
+		LessEqual,
+
+		/// <summary>
+		/// Checking whether a field value is included in a set of values
+		/// </summary>
+		In
 	}
 }

@@ -13,6 +13,16 @@ namespace Geo.QueryMapper.Test.Models
 
 		public int? IdGreater { get; set; }
 
+		public int[] IdIn { get; set; }
+
+		public int?[] KindIdIn { get; set; }
+
+		public int?[] KindGroupIdIn { get; set; }
+
+		public string[] NameIn { get; set; }
+
+		public string[] KindGroupNameIn { get; set; }
+
 		public int? IdGreaterEqual { get; set; }
 
 		public string Name { get; set; }
