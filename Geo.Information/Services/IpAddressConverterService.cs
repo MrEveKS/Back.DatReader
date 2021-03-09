@@ -8,7 +8,7 @@ namespace Geo.Information.Services
 		/// <inheritdoc cref="IIpAddressConverterService.ConvertFromIpAddressToInteger" />
 		public uint? ConvertFromIpAddressToInteger(string ipAddress)
 		{
-			if (!IPAddress.TryParse(ipAddress, out var address))
+			if (string.IsNullOrEmpty(ipAddress) || !IPAddress.TryParse(ipAddress, out var address))
 			{
 				return null;
 			}
