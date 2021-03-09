@@ -95,6 +95,17 @@ namespace Geo.QueryMapper
 			return result;
 		}
 
+		/// <inheritdoc cref="IQueryDtoMapper{TEntity,TResultDto}.MapQueryOneAsync" />
+		public virtual Task<TResultDto> MapQueryOneAsync(bool isSetProjection = true,
+														CancellationToken cancellationToken = default)
+		{
+			QueryResult = isSetProjection ? SetProjection(Query) : QueryResult;
+
+			cancellationToken.ThrowIfCancellationRequested();
+
+			return QueryResult.FirstOrDefaultAsync(cancellationToken);
+		}
+
 		/// <inheritdoc cref="IQueryDtoMapper{TEntity,TResultDto}.CustomizeProjection{T}" />
 		/// />
 		public IQueryDtoMapper<TEntity, TResultDto> CustomizeProjection<T>(Expression<Func<TResultDto, T>> selector,

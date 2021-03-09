@@ -61,6 +61,15 @@ namespace Geo.QueryMapper
 														CancellationToken cancellationToken = default);
 
 		/// <summary>
+		/// Run the query with first entity
+		/// </summary>
+		/// <param name="isSetProjection"> </param>
+		/// <param name="cancellationToken"> </param>
+		/// <returns> </returns>
+		Task<TResultDto> MapQueryOneAsync(bool isSetProjection = true,
+										CancellationToken cancellationToken = default);
+
+		/// <summary>
 		/// Set the projection of query results to dto
 		/// </summary>
 		/// <typeparam name="T"> type of request object </typeparam>

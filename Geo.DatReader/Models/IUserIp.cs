@@ -8,6 +8,6 @@ namespace Geo.DatReader.Models
 
 		uint IpTo { get; }
 
-		uint UserLocationId { get; }
+		int UserLocationId { get; }
 	}
 }

@@ -2,6 +2,8 @@ namespace Geo.Common.Dto.UserLocation
 {
 	public class UserLocationFilterDto : EntityDto
 	{
+		public int[] IdIn { get; set; }
+
 		public string CityEqual { get; set; }
 
 		public string CityContains { get; set; }

@@ -16,6 +16,7 @@ namespace Geo.Information.Test.ServicesTest
 		[Theory]
 		[InlineData((uint) 0xffffffff)]
 		[InlineData(100000)]
+		[InlineData(457823)]
 		public void ConvertFromIpAddressToInteger_Test(uint ipAddress)
 		{
 			var ipAddressString = _service.ConvertFromIntegerToIpAddress(ipAddress);
@@ -38,6 +39,7 @@ namespace Geo.Information.Test.ServicesTest
 		[InlineData("127.0.0.1")]
 		[InlineData("198.162.0.1")]
 		[InlineData("33.0.0.0")]
+		[InlineData("0.6.252.95")]
 		public void ConvertFromIpAddressToInteger_NotNull_Test(string ipAddressString)
 		{
 			var ipAddress = _service.ConvertFromIpAddressToInteger(ipAddressString);

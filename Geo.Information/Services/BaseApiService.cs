@@ -13,7 +13,7 @@ namespace Geo.Information.Services
 		where TEntityDto : EntityDto
 		where TEntityFilterDto : EntityDto
 	{
-		private readonly IQueryDtoMapper<TEntity, TEntityDto> _queryDtoMapper;
+		protected readonly IQueryDtoMapper<TEntity, TEntityDto> _queryDtoMapper;
 
 		protected BaseApiService(IQueryDtoMapper<TEntity, TEntityDto> queryDtoMapper)
 		{

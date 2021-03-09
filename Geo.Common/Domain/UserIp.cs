@@ -6,6 +6,8 @@ namespace Geo.Common.Domain
 
 		public uint IpTo { get; set; }
 
-		public uint UserLocationId { get; set; }
+		public int UserLocationId { get; set; }
+
+		public UserLocation UserLocation { get; set; }
 	}
 }

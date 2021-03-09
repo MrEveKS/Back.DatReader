@@ -6,6 +6,7 @@ import VirtualizedTable from './VirtualizedTable.jsx';
 import SearchBar from './SearchBar.jsx';
 
 import QueryService from '../services/QueryService';
+import {map} from "rxjs/operators";
 
 const {setTimeout, clearTimeout} = window;
 
@@ -61,7 +62,7 @@ function MuiReactVirtualizedTable(props) {
 
 		waitIndex = index;
 
-		const url = `http://localhost:5000/api/${(searchIp ? 'UserIp' : 'UserLocation')}/GetAll`;
+		const url = `http://localhost:5000/api/${(searchIp ? 'UserIp/GetUserLocation' : 'UserLocation/GetAll')}`;
 		const queryService = QueryService();
 		const filter = {};
 		if (searchIp) {
@@ -76,7 +77,9 @@ function MuiReactVirtualizedTable(props) {
 			skip: rowInPage * index
 		};
 
-		queryService.post(url, queryData).subscribe((data) => {
+		queryService.post(url, queryData)
+
+			.subscribe((data) => {
 			const newData = {...tableData, rowsCollection: {...tableData.rowsCollection}};
 			const items = data?.items ?? [];
 			if (items.length) {
@@ -171,7 +174,7 @@ function MuiReactVirtualizedTable(props) {
 						},
 						{
 							width: 200,
-							label: 'Адрес',
+							label: 'Почтовый индекс',
 							dataKey: 'postal',
 						},
 						{
@@ -183,6 +186,18 @@ function MuiReactVirtualizedTable(props) {
 							width: 200,
 							label: 'Организация',
 							dataKey: 'organization',
+						},
+						{
+							width: 200,
+							label: 'Широта',
+							dataKey: 'latitude',
+							numeric: true,
+						},
+						{
+							width: 200,
+							label: 'Долгота',
+							dataKey: 'longitude',
+							numeric: true,
 						},
 					]}
 				/>

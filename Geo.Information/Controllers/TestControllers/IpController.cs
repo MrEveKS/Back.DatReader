@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Geo.Common.Dto.Query;
 using Geo.Common.Dto.QueryResult;
 using Geo.Common.Dto.UserIp;
+using Geo.Common.Dto.UserLocation;
 using Geo.Information.Controllers.BaseControllers;
 using Geo.Information.Services.UserIpServices;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,7 @@ namespace Geo.Information.Controllers.TestControllers
 		}
 
 		[HttpGet]
-		public Task<IQueryResultDto<UserIpDto>> Location(string ip, CancellationToken cancellationToken = default)
+		public Task<IQueryResultDto<UserLocationDto>> Location(string ip, CancellationToken cancellationToken = default)
 		{
 			var filter = new QueryDto<UserIpFilterDto>
 			{
@@ -25,7 +26,7 @@ namespace Geo.Information.Controllers.TestControllers
 				WithCount = true
 			};
 
-			return GetAll(filter, cancellationToken);
+			return ((IUserIpService) _service).GetUserLocation(filter, cancellationToken);
 		}
 
 		[NonAction]

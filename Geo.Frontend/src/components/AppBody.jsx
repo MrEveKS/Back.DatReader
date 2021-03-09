@@ -71,8 +71,8 @@ function AppBody(props) {
 	const searchIp = props.search === 'ip';
 	const bodyProps = {
 		search: props.search,
-		placeholder: searchIp ? 'Поиска гео-информации' : 'Поиск списка местоположений',
-		ariaLabel: searchIp ? 'поиска гео-информации' : 'поиск списка местоположений'
+		placeholder: searchIp ? 'Поиска гео-информации по Ip' : 'Поиск списка местоположений',
+		ariaLabel: searchIp ? 'поиска гео-информации по ip' : 'поиск списка местоположений'
 	}
 
 	const handleDrawerToggle = () => {

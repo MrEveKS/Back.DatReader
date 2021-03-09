@@ -7,6 +7,11 @@
     &lt;TestId&gt;xUnit::760C7B1C-0597-473E-A840-AD9EB2E43AC2::net5.0::Geo.Information.Test.ServicesTest.IpAddressConverterTest.ConvertFromIpAddressToInteger_null_test&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6065fd0c_002D36b2_002D443c_002D9957_002D7efd922bcb04/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ConvertFromIpAddressToInteger_Test" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::760C7B1C-0597-473E-A840-AD9EB2E43AC2::net5.0::Geo.Information.Test.ServicesTest.IpAddressConverterTest.ConvertFromIpAddressToInteger_Test&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=eabca759_002D579a_002D4e00_002D89d7_002De6fbe0e93d32/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

@@ -26,7 +26,7 @@ namespace Geo.DatReader.Models
 
 		public uint IpTo => GetIpTo();
 
-		public uint UserLocationId => GetUserLocationId();
+		public int UserLocationId => GetUserLocationId();
 
 		public UserIp(Stream stream, int id)
 		{
@@ -49,9 +49,9 @@ namespace Geo.DatReader.Models
 			return _ipTo ??= InitUint(IpFromSize);
 		}
 
-		private uint GetUserLocationId()
+		private int GetUserLocationId()
 		{
-			return _locationIndex ??= InitUint(IpFromSize + IpToSize);
+			return (int) (_locationIndex ??= InitUint(IpFromSize + IpToSize)) + 1;
 		}
 
 		private uint InitUint(byte skip)

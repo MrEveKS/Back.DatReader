@@ -1,3 +1,4 @@
+using System;
 using Geo.Common.Constants;
 using Geo.Common.Domain;
 using Geo.DatReader;
@@ -23,6 +24,21 @@ namespace Geo.Information.Database
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
+			try
+			{
+				modelBuilder.Entity<UserIp>()
+					.HasOne(p => p.UserLocation)
+					.WithOne()
+					.HasForeignKey<UserIp>(d => d.UserLocationId);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+
+				throw;
+			}
+
+
 			_datDbData.InitializeAsync().ConfigureAwait(AsyncConstants.CONTINUE_ON_CAPTURED_CONTEXT).GetAwaiter().GetResult();
 
 			modelBuilder.Entity<DatInfo>()

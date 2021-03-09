@@ -1,3 +1,5 @@
+using Geo.Common.Dto.UserLocation;
+
 namespace Geo.Common.Dto.UserIp
 {
 	public class UserIpDto : EntityDto
@@ -7,5 +9,7 @@ namespace Geo.Common.Dto.UserIp
 		public uint? IpTo { get; set; }
 
 		public uint? UserLocationId { get; set; }
+
+		public UserLocationDto UserLocation { get; set; }
 	}
 }

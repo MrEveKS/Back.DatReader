@@ -13,7 +13,7 @@ namespace Geo.Information.Controllers.BaseControllers
 		where TEntityDto : EntityDto
 		where TEntityFilterDto : EntityDto
 	{
-		private readonly IBaseApiService<TEntityDto, TEntityFilterDto> _service;
+		protected readonly IBaseApiService<TEntityDto, TEntityFilterDto> _service;
 
 		protected BaseController(IBaseApiService<TEntityDto, TEntityFilterDto> service)
 		{
