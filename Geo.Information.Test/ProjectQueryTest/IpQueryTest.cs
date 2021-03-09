@@ -1,8 +1,6 @@
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Geo.Common.Domain;
-using Geo.Common.Dto.DatInfo;
 using Geo.Common.Dto.Query;
 using Geo.Common.Dto.QueryResult;
 using Geo.Common.Dto.UserIp;
@@ -20,7 +18,7 @@ namespace Geo.Information.Test.ProjectQueryTest
 		[InlineData(55555)]
 		public async Task Query_IpFrom_GreaterEqual_Test(uint ipFromGreaterEqual)
 		{
-			var filter = new UserIpFilterDto()
+			var filter = new UserIpFilterDto
 			{
 				IpFromGreaterEqual = ipFromGreaterEqual
 			};
@@ -40,7 +38,7 @@ namespace Geo.Information.Test.ProjectQueryTest
 		[InlineData(55555)]
 		public async Task Query_IpTo_LessEqual_Test(uint ipToLessEqual)
 		{
-			var filter = new UserIpFilterDto()
+			var filter = new UserIpFilterDto
 			{
 				IpToLessEqual = ipToLessEqual
 			};

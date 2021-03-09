@@ -101,6 +101,8 @@ namespace Geo.QueryMapper
 		{
 			QueryResult = isSetProjection ? SetProjection(Query) : QueryResult;
 
+			QueryResult = SetOrder(QueryResult);
+
 			cancellationToken.ThrowIfCancellationRequested();
 
 			return QueryResult.FirstOrDefaultAsync(cancellationToken);

@@ -113,7 +113,7 @@ namespace Geo.DatReader.Models
 		{
 			fixed (byte* numRef = &_buffer[0])
 			{
-				return new string((sbyte*) &numRef[skip]);
+				return new string((sbyte*) &numRef[skip]).TrimEnd();
 			}
 		}
 

@@ -1,7 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Geo.Common.Dto.Query;
-using Geo.Common.Dto.QueryResult;
 using Geo.Common.Dto.UserIp;
 using Geo.Common.Dto.UserLocation;
 using Geo.Information.Controllers.BaseControllers;
@@ -17,10 +16,10 @@ namespace Geo.Information.Controllers.GeoControllers
 		}
 
 		[HttpPost]
-		public Task<IQueryResultDto<UserLocationDto>> GetUserLocation([FromBody] QueryDto<UserIpFilterDto> filter,
-																	CancellationToken cancellationToken = default)
+		public Task<UserLocationDto> GetUserLocation([FromBody] QueryDto<UserIpFilterDto> filter,
+													CancellationToken cancellationToken = default)
 		{
-			return ((IUserIpService) _service).GetUserLocation(filter, cancellationToken);
+			return ((IUserIpService) Service).GetUserLocation(filter, cancellationToken);
 		}
 	}
 }

@@ -17,7 +17,7 @@ namespace Geo.Information.Controllers.TestControllers
 		}
 
 		[HttpGet]
-		public Task<IQueryResultDto<UserLocationDto>> Location(string ip, CancellationToken cancellationToken = default)
+		public Task<UserLocationDto> Location(string ip, CancellationToken cancellationToken = default)
 		{
 			var filter = new QueryDto<UserIpFilterDto>
 			{
@@ -26,7 +26,7 @@ namespace Geo.Information.Controllers.TestControllers
 				WithCount = true
 			};
 
-			return ((IUserIpService) _service).GetUserLocation(filter, cancellationToken);
+			return ((IUserIpService) Service).GetUserLocation(filter, cancellationToken);
 		}
 
 		[NonAction]

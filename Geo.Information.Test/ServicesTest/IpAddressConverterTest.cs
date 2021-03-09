@@ -46,5 +46,20 @@ namespace Geo.Information.Test.ServicesTest
 			Assert.NotNull(ipAddress);
 		}
 
+		[Theory]
+		[InlineData("255.0.255.0")]
+		[InlineData("127.0.0.1")]
+		[InlineData("198.162.0.1")]
+		[InlineData("33.0.0.0")]
+		[InlineData("0.6.252.95")]
+		[InlineData("0.8.0.8")]
+		public void ConvertFromIpAddressToInteger_Equal_Test(string ipAddressString)
+		{
+			var ipAddress = _service.ConvertFromIpAddressToInteger(ipAddressString);
+			var newIpAddressString = _service.ConvertFromIntegerToIpAddress(ipAddress.GetValueOrDefault());
+
+			Assert.Equal(ipAddressString, newIpAddressString);
+		}
+
 	}
 }

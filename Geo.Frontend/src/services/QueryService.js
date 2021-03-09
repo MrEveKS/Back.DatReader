@@ -1,5 +1,5 @@
 import {ReplaySubject} from "rxjs";
-import {switchMap, takeUntil} from "rxjs/operators";
+import {map, switchMap, takeUntil} from "rxjs/operators";
 import {fromFetch} from "rxjs/fetch";
 import {fromPromise} from "rxjs/internal-compatibility";
 
@@ -10,7 +10,8 @@ class FetchAsync {
 	get(url) {
 		return fromFetch(url)
 			.pipe(
-				switchMap((response) => response.json()),
+				switchMap((response) => response.text()),
+				map((text) => text ? JSON.parse(text) : null),
 				takeUntil(this._destroy)
 			);
 	}
@@ -26,7 +27,8 @@ class FetchAsync {
 
 		return fromPromise(fetch(url, body))
 			.pipe(
-				switchMap((response) => response.json()),
+				switchMap((response) => response.text()),
+				map((text) => text ? JSON.parse(text) : null),
 				takeUntil(this._destroy)
 			);
 	}

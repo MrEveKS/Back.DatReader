@@ -22,6 +22,7 @@ import DnsIcon from '@material-ui/icons/Dns';
 import LocationSearchingIcon from '@material-ui/icons/LocationSearching';
 
 import ReactVirtualizedTable from './ReactVirtualizedTable.jsx';
+import Information from "./Information.jsx";
 
 import "../styles/main.css";
 
@@ -69,11 +70,6 @@ function AppBody(props) {
 	const theme = useTheme();
 	const [mobileOpen, setMobileOpen] = React.useState(false);
 	const searchIp = props.search === 'ip';
-	const bodyProps = {
-		search: props.search,
-		placeholder: searchIp ? 'Поиска гео-информации по Ip' : 'Поиск списка местоположений',
-		ariaLabel: searchIp ? 'поиска гео-информации по ip' : 'поиск списка местоположений'
-	}
 
 	const handleDrawerToggle = () => {
 		setMobileOpen(!mobileOpen);
@@ -149,9 +145,11 @@ function AppBody(props) {
 				</Hidden>
 			</nav>
 			<main className={classes.content}>
-
-				<ReactVirtualizedTable {...bodyProps} />
-
+				{
+					searchIp
+						? <Information {...props} />
+						: <ReactVirtualizedTable {...props} />
+				}
 			</main>
 		</div>
 	);

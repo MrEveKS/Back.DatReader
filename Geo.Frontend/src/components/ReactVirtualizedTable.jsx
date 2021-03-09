@@ -6,7 +6,6 @@ import VirtualizedTable from './VirtualizedTable.jsx';
 import SearchBar from './SearchBar.jsx';
 
 import QueryService from '../services/QueryService';
-import {map} from "rxjs/operators";
 
 const {setTimeout, clearTimeout} = window;
 
@@ -30,11 +29,10 @@ let waitTimer;
 
 function MuiReactVirtualizedTable(props) {
 
-	const searchIp = props.search === 'ip';
 	const emptyRow = ['', '', '', '', '', ''];
 	const rowInPage = 200;
 
-	const {classes, placeholder, ariaLabel} = props;
+	const {classes} = props;
 
 	const [search, setSearch] = useState('');
 	const [searchData, setSearchData] = useState(false);
@@ -62,16 +60,12 @@ function MuiReactVirtualizedTable(props) {
 
 		waitIndex = index;
 
-		const url = `http://localhost:5000/api/${(searchIp ? 'UserIp/GetUserLocation' : 'UserLocation/GetAll')}`;
+		const url = 'http://localhost:5000/api/UserLocation/GetAll';
 		const queryService = QueryService();
-		const filter = {};
-		if (searchIp) {
-			filter.ipAddress = search?.trim();
-		} else {
-			filter.cityEqual = search?.trim();
-		}
 		const queryData = {
-			filter: filter,
+			filter: {
+				cityEqual: search?.trim()
+			},
 			withCount: true,
 			take: rowInPage,
 			skip: rowInPage * index
@@ -80,38 +74,38 @@ function MuiReactVirtualizedTable(props) {
 		queryService.post(url, queryData)
 
 			.subscribe((data) => {
-			const newData = {...tableData, rowsCollection: {...tableData.rowsCollection}};
-			const items = data?.items ?? [];
-			if (items.length) {
-				const lastItem = items[items.length - 1];
-				if (lastItem && lastItem.id) {
-					if (lastItem.id > 9 && lastItem.id % 10 === 0 && index % rowInPage !== 0) {
-						const idColumnWidth = String(lastItem.id).length * 18;
-						if (newData.firstColumnWidth < idColumnWidth) {
-							newData.firstColumnWidth = idColumnWidth;
+				const newData = {...tableData, rowsCollection: {...tableData.rowsCollection}};
+				const items = data?.items ?? [];
+				if (items.length) {
+					const lastItem = items[items.length - 1];
+					if (lastItem && lastItem.id) {
+						if (lastItem.id > 9 && lastItem.id % 10 === 0 && index % rowInPage !== 0) {
+							const idColumnWidth = String(lastItem.id).length * 18;
+							if (newData.firstColumnWidth < idColumnWidth) {
+								newData.firstColumnWidth = idColumnWidth;
+							}
 						}
 					}
 				}
-			}
 
-			newData.rowsCount = data?.count ?? 0;
-			if (getNewCollection) {
-				newData.rowsCollection = {[index]: items};
-				gottenIndex = [];
-			} else {
-				newData.rowsCollection = {...newData.rowsCollection, [index]: items};
-			}
+				newData.rowsCount = data?.count ?? 0;
+				if (getNewCollection) {
+					newData.rowsCollection = {[index]: items};
+					gottenIndex = [];
+				} else {
+					newData.rowsCollection = {...newData.rowsCollection, [index]: items};
+				}
 
-			setTableData(newData);
+				setTableData(newData);
 
-			gottenIndex.push(index);
+				gottenIndex.push(index);
 
-			if (indexInQueue !== -1 && indexInQueue !== index) {
-				gottenIndex.indexOf(indexInQueue) === -1 && getNext(indexInQueue);
-			}
-			waitIndex = -1;
-			indexInQueue = -1;
-		});
+				if (indexInQueue !== -1 && indexInQueue !== index) {
+					gottenIndex.indexOf(indexInQueue) === -1 && getNext(indexInQueue);
+				}
+				waitIndex = -1;
+				indexInQueue = -1;
+			});
 	};
 
 	const getNext = (index) => {
@@ -144,8 +138,8 @@ function MuiReactVirtualizedTable(props) {
 	return (
 		<Paper className={classes.root}>
 			<SearchBar
-				placeholder={placeholder}
-				ariaLabel={ariaLabel}
+				placeholder="Поиск списка местоположений"
+				ariaLabel="поиск списка местоположений"
 				value={search}
 				onChange={(searchVal) => setSearch(searchVal)}
 				onSearch={() => onSearch(search)}
@@ -169,7 +163,7 @@ function MuiReactVirtualizedTable(props) {
 						},
 						{
 							width: 200,
-							label: 'Область, край',
+							label: 'Область',
 							dataKey: 'region',
 						},
 						{

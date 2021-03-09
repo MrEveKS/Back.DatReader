@@ -1,13 +1,12 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Geo.Common.Constants;
 using Geo.Common.Domain;
 using Geo.Common.Dto.Query;
-using Geo.Common.Dto.QueryResult;
 using Geo.Common.Dto.UserIp;
 using Geo.Common.Dto.UserLocation;
+using Geo.Common.Enums;
 using Geo.QueryMapper;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,67 +23,72 @@ namespace Geo.Information.Services.UserIpServices
 			_addressConverterService = addressConverterService;
 		}
 
-		public override Task<IQueryResultDto<UserIpDto>> GetAll(QueryDto<UserIpFilterDto> queryDto,
-																CancellationToken cancellationToken = default)
+		public async Task<UserLocationDto> GetUserLocation(QueryDto<UserIpFilterDto> queryDto,
+															CancellationToken cancellationToken = default)
 		{
 			var ipAddressUint = _addressConverterService.ConvertFromIpAddressToInteger(queryDto?.Filter?.IpAddress);
 
-			if (!ipAddressUint.HasValue)
+			if (!ipAddressUint.HasValue && queryDto?.Filter?.IpAddress != null)
 			{
-				return GetAllWithLocations(queryDto, cancellationToken);
+				return null;
 			}
 
 			queryDto ??= new QueryDto<UserIpFilterDto>();
 			queryDto.Filter ??= new UserIpFilterDto();
-			queryDto.Filter.IpAddress = null;
-			queryDto.Filter.IpFromGreaterEqual ??= ipAddressUint;
-			queryDto.Filter.IpToLessEqual ??= ipAddressUint;
 
-			return GetAllWithLocations(queryDto, cancellationToken);
-		}
-
-		public async Task<IQueryResultDto<UserLocationDto>> GetUserLocation(QueryDto<UserIpFilterDto> queryDto,
-																			CancellationToken cancellationToken = default)
-		{
-			var userIpDtoResult = await GetAll(queryDto, cancellationToken)
-				.ConfigureAwait(AsyncConstants.CONTINUE_ON_CAPTURED_CONTEXT);
-
-			if (userIpDtoResult?.Items == null || userIpDtoResult.Items.Count == 0)
+			if (ipAddressUint.HasValue)
 			{
-				return new QueryResultDto<UserLocationDto>
-					{ Items = new List<UserLocationDto>(0), Count = 0 };
+				queryDto.Filter.IpFromGreaterEqual ??= ipAddressUint;
+
+				queryDto.Order = new List<OrderDto>
+					{ new() { Field = "IpFrom", Type = OrderType.Asc } };
 			}
 
-			var locations = userIpDtoResult.Items.Select(v => v.UserLocation).ToList();
+			var userIpDtoResult = await GetOneWithLocations(queryDto, cancellationToken)
+				.ConfigureAwait(AsyncConstants.CONTINUE_ON_CAPTURED_CONTEXT);
 
-			return new QueryResultDto<UserLocationDto>
+			if (!(ipAddressUint >= userIpDtoResult?.IpFrom && ipAddressUint <= userIpDtoResult.IpTo))
 			{
-				Count = userIpDtoResult.Count,
-				Items = locations
-			};
+				queryDto.Filter.IpFromGreaterEqual = null;
+				queryDto.Filter.IpToLessEqual = userIpDtoResult?.IpTo - 1;
+
+				queryDto.Order = new List<OrderDto>
+					{ new() { Field = "IpTo", Type = OrderType.Desc } };
+
+				userIpDtoResult = await GetOneWithLocations(queryDto, cancellationToken, true)
+					.ConfigureAwait(AsyncConstants.CONTINUE_ON_CAPTURED_CONTEXT);
+			}
+
+			if (!ipAddressUint.HasValue || ipAddressUint >= userIpDtoResult?.IpFrom && ipAddressUint <= userIpDtoResult.IpTo)
+			{
+				return userIpDtoResult.UserLocation;
+			}
+
+			return null;
 		}
 
-		private Task<IQueryResultDto<UserIpDto>> GetAllWithLocations(QueryDto<UserIpFilterDto> queryDto,
-																	CancellationToken cancellationToken = default)
+		private Task<UserIpDto> GetOneWithLocations(QueryDto<UserIpFilterDto> queryDto,
+													CancellationToken cancellationToken = default, bool updateQuery = false)
 		{
-			var queryDtoMapper = _queryDtoMapper
-				.QueryDto(queryDto);
+			var queryDtoMapper = QueryDtoMapper
+				.QueryDto(queryDto, updateQuery);
 
 			queryDtoMapper.Query = queryDtoMapper.Query.Include(x => x.UserLocation);
 
 			return queryDtoMapper
-				.CustomizeProjection(x => x.UserLocation, x => new UserLocationDto()
-				{
-					Id = x.UserLocation.Id,
-					City = x.UserLocation.City,
-					Country = x.UserLocation.Country,
-					Latitude = x.UserLocation.Latitude,
-					Longitude = x.UserLocation.Longitude,
-					Organization = x.UserLocation.Organization,
-					Postal = x.UserLocation.Postal,
-					Region = x.UserLocation.Region
-				})
-				.MapQueryAsync(true, cancellationToken: cancellationToken);
+				.CustomizeProjection(x => x.UserLocation,
+					x => new UserLocationDto
+					{
+						Id = x.UserLocation.Id,
+						City = x.UserLocation.City,
+						Country = x.UserLocation.Country,
+						Latitude = x.UserLocation.Latitude,
+						Longitude = x.UserLocation.Longitude,
+						Organization = x.UserLocation.Organization,
+						Postal = x.UserLocation.Postal,
+						Region = x.UserLocation.Region
+					})
+				.MapQueryOneAsync(cancellationToken: cancellationToken);
 		}
 	}
 }

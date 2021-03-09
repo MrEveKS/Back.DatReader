@@ -18,5 +18,13 @@ namespace Geo.Information.Services
 		/// <returns> </returns>
 		Task<IQueryResultDto<TEntityDto>> GetAll(QueryDto<TEntityFilterDto> queryDto,
 												CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Get first entities by filter
+		/// </summary>
+		/// <param name="queryDto"> </param>
+		/// <param name="cancellationToken"> </param>
+		/// <returns> </returns>
+		Task<TEntityDto> GetOne(QueryDto<TEntityFilterDto> queryDto, CancellationToken cancellationToken = default);
 	}
 }

@@ -53,6 +53,24 @@ namespace Geo.Information.Test.ProjectQueryTest
 			Assert.True(result.Count > 0);
 		}
 
+		[Fact]
+		public async Task Get_City_Filter_Test()
+		{
+			var filter = new UserLocationFilterDto
+			{
+				CityEqual = "cit_Ujami"
+			};
+
+			var timer = Stopwatch.StartNew();
+
+			var mapper = GetQueryDtoMapper();
+			var result = await GetResultAsync(mapper, filter);
+
+			var time = timer.Elapsed.TotalMilliseconds;
+			_testOutputHelper.WriteLine($"time: {time: 0.0000} ms");
+			Assert.NotNull(result);
+		}
+
 		private IQueryDtoMapper<UserLocation, UserLocationDto> GetQueryDtoMapper()
 		{
 			return new QueryDtoMapper<UserLocation, UserLocationDto>(DbContext);

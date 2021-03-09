@@ -13,25 +13,29 @@ namespace Geo.Information.Services
 		where TEntityDto : EntityDto
 		where TEntityFilterDto : EntityDto
 	{
-		protected readonly IQueryDtoMapper<TEntity, TEntityDto> _queryDtoMapper;
+		protected readonly IQueryDtoMapper<TEntity, TEntityDto> QueryDtoMapper;
 
 		protected BaseApiService(IQueryDtoMapper<TEntity, TEntityDto> queryDtoMapper)
 		{
-			_queryDtoMapper = queryDtoMapper;
+			QueryDtoMapper = queryDtoMapper;
 		}
 
-		/// <summary>
-		/// Get all entities by filter
-		/// </summary>
-		/// <param name="queryDto"> </param>
-		/// <param name="cancellationToken"> </param>
-		/// <returns> </returns>
+		/// <inheritdoc />
 		public virtual Task<IQueryResultDto<TEntityDto>> GetAll(QueryDto<TEntityFilterDto> queryDto,
 																CancellationToken cancellationToken = default)
 		{
-			return _queryDtoMapper
+			return QueryDtoMapper
 				.QueryDto(queryDto)
 				.MapQueryAsync(cancellationToken: cancellationToken);
+		}
+
+		/// <inheritdoc />
+		public virtual Task<TEntityDto> GetOne(QueryDto<TEntityFilterDto> queryDto,
+												CancellationToken cancellationToken = default)
+		{
+			return QueryDtoMapper
+				.QueryDto(queryDto)
+				.MapQueryOneAsync(cancellationToken: cancellationToken);
 		}
 	}
 }

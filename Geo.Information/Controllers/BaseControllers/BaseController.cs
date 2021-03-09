@@ -13,18 +13,18 @@ namespace Geo.Information.Controllers.BaseControllers
 		where TEntityDto : EntityDto
 		where TEntityFilterDto : EntityDto
 	{
-		protected readonly IBaseApiService<TEntityDto, TEntityFilterDto> _service;
+		protected readonly IBaseApiService<TEntityDto, TEntityFilterDto> Service;
 
 		protected BaseController(IBaseApiService<TEntityDto, TEntityFilterDto> service)
 		{
-			_service = service;
+			Service = service;
 		}
 
 		[HttpPost]
 		public virtual Task<IQueryResultDto<TEntityDto>> GetAll([FromBody] QueryDto<TEntityFilterDto> filter,
 																CancellationToken cancellationToken = default)
 		{
-			return _service.GetAll(filter, cancellationToken);
+			return Service.GetAll(filter, cancellationToken);
 		}
 	}
 }
