@@ -2,7 +2,7 @@ using Geo.DatReader;
 using Geo.Information.Database;
 using Microsoft.EntityFrameworkCore;
 
-namespace Geo.Information.Test.ProjectQueryTest.Database
+namespace Geo.Information.Test.Database
 {
 	public class TestDatDbContext
 	{
@@ -24,5 +24,6 @@ namespace Geo.Information.Test.ProjectQueryTest.Database
 
 			return dbContext;
 		}
+
 	}
 }
