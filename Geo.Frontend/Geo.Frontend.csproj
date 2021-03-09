@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
@@ -7,7 +7,7 @@
 
 	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
 	  <RemoveDir Directories="wwwroot" />
-	  <Exec Command="npm run build" />
+	  <Exec Command="npm run prod" />
 	</Target>
 
 	<ItemGroup>
