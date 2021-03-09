@@ -2,6 +2,11 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Users\eveks\.nuget\packages\microsoft.entityframeworkcore.abstractions\5.0.3\lib\netstandard2.1\Microsoft.EntityFrameworkCore.Abstractions.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=378cb08f_002D35f1_002D4ef1_002Dbbb4_002D1ac755955dc2/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ConvertFromIpAddressToInteger_null_test" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::760C7B1C-0597-473E-A840-AD9EB2E43AC2::net5.0::Geo.Information.Test.ServicesTest.IpAddressConverterTest.ConvertFromIpAddressToInteger_null_test&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=eabca759_002D579a_002D4e00_002D89d7_002De6fbe0e93d32/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

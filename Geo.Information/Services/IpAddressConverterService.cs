@@ -21,6 +21,7 @@ namespace Geo.Information.Services
 			}
 
 			return BitConverter.ToUInt32(bytes, 0);
+
 		}
 
 		/// <inheritdoc cref="IIpAddressConverterService.ConvertFromIntegerToIpAddress" />

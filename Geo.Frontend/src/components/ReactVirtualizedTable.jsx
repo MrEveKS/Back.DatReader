@@ -63,10 +63,14 @@ function MuiReactVirtualizedTable(props) {
 
 		const url = `http://localhost:5000/api/${(searchIp ? 'UserIp' : 'UserLocation')}/GetAll`;
 		const queryService = QueryService();
+		const filter = {};
+		if (searchIp) {
+			filter.ipAddress = search?.trim();
+		} else {
+			filter.cityEqual = search?.trim();
+		}
 		const queryData = {
-			filter: {
-				cityContains: search?.trim(),
-			},
+			filter: filter,
 			withCount: true,
 			take: rowInPage,
 			skip: rowInPage * index

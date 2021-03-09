@@ -24,4 +24,8 @@
 		<ProjectReference Include="..\Geo.Information\Geo.Information.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="IpAddressTest\" />
+	</ItemGroup>
+
 </Project>
