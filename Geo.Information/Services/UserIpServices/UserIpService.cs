@@ -23,13 +23,14 @@ namespace Geo.Information.Services.UserIpServices
 		public override Task<IQueryResultDto<UserIpDto>> GetAll(QueryDto<UserIpFilterDto> queryDto,
 																CancellationToken cancellationToken = default)
 		{
-			var ipAddressUint = _addressConverterService.ConvertFromIpAddressToInteger(queryDto.Filter?.IpAddress);
+			var ipAddressUint = _addressConverterService.ConvertFromIpAddressToInteger(queryDto?.Filter?.IpAddress);
 
 			if (!ipAddressUint.HasValue)
 			{
 				return base.GetAll(queryDto, cancellationToken);
 			}
 
+			queryDto ??= new QueryDto<UserIpFilterDto>();
 			queryDto.Filter ??= new UserIpFilterDto();
 			queryDto.Filter.IpFromGreaterEqual ??= ipAddressUint;
 			queryDto.Filter.IpToLessEqual ??= ipAddressUint;
