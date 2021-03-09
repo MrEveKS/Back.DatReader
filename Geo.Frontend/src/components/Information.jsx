@@ -31,7 +31,7 @@ function MuiInformation(props) {
 	}, [searchData]);
 
 	const getData = () => {
-		const url = 'http://localhost:5000/api/UserIp/GetUserLocation';
+		const url = 'api/UserIp/GetUserLocation';
 		const queryService = QueryService();
 		const queryData = {
 			filter: {

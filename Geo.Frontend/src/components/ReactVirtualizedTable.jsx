@@ -60,7 +60,7 @@ function MuiReactVirtualizedTable(props) {
 
 		waitIndex = index;
 
-		const url = 'http://localhost:5000/api/UserLocation/GetAll';
+		const url = 'api/UserLocation/GetAll';
 		const queryService = QueryService();
 		const queryData = {
 			filter: {
