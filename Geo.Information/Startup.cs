@@ -36,6 +36,19 @@ namespace Geo.Information
 		{
 			var isDevelop = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == BuildConstants.DEVELOPMENT;
 
+			if (isDevelop)
+			{
+				services.AddCors(options =>
+				{
+					options.AddPolicy("DevelopPolicy",
+						builder => builder
+							.WithOrigins("http://localhost:9000/")
+							.AllowAnyOrigin()
+							.AllowAnyMethod()
+							.AllowAnyHeader());
+				});
+			}
+
 			services.AddDbContext<DatDbContext>(options =>
 				options.UseInMemoryDatabase(Configuration["DbContext:Name"]));
 
@@ -122,6 +135,11 @@ namespace Geo.Information
 
 			app.UseRouting();
 
+			if (isDevelop)
+			{
+				app.UseCors("DevelopPolicy");
+			}
+
 			app.UseStatusCodePages(async context =>
 			{
 				context.HttpContext.Response.ContentType = "application/json";
@@ -150,7 +168,14 @@ namespace Geo.Information
 
 			app.UseEndpoints(endpoints =>
 			{
-				endpoints.MapControllers();
+				if (isDevelop)
+				{
+					endpoints.MapControllers().RequireCors("DevelopPolicy");
+				} else
+				{
+					endpoints.MapControllers();
+				}
+
 				endpoints.MapFallbackToController("Index", "Home");
 			});
 		}

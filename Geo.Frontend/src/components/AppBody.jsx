@@ -70,6 +70,7 @@ function AppBody(props) {
 	const [mobileOpen, setMobileOpen] = React.useState(false);
 	const searchIp = props.search === 'ip';
 	const bodyProps = {
+		search: props.search,
 		placeholder: searchIp ? 'Поиска гео-информации' : 'Поиск списка местоположений',
 		ariaLabel: searchIp ? 'поиска гео-информации' : 'поиск списка местоположений'
 	}

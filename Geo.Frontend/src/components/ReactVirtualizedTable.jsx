@@ -1,9 +1,13 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Paper from '@material-ui/core/Paper';
 import {withStyles} from '@material-ui/core/styles';
 
 import VirtualizedTable from './VirtualizedTable.jsx';
 import SearchBar from './SearchBar.jsx';
+
+import QueryService from '../services/QueryService';
+
+const {setTimeout, clearTimeout} = window;
 
 const styles = (theme) => ({
 	root: {
@@ -17,33 +21,117 @@ const styles = (theme) => ({
 	}
 });
 
-const sample = [
-	['Frozen yoghurt', 159, 6.0, 24, 4.0],
-	['Ice cream sandwich', 237, 9.0, 37, 4.3],
-	['Eclair', 262, 16.0, 24, 6.0],
-	['Cupcake', 305, 3.7, 67, 4.3],
-	['Gingerbread', 356, 16.0, 49, 3.9],
-];
+let indexInQueue = -1;
+let gottenIndex = [];
+let waitIndex = -1;
 
-function createData(id, dessert, calories, fat, carbs, protein) {
-	return {id, dessert, calories, fat, carbs, protein};
-}
-
-const rows = [];
-
-for (let i = 0; i < 2000; i += 1) {
-	const randomSelection = sample[Math.floor(Math.random() * sample.length)];
-	rows.push(createData(i, ...randomSelection));
-}
+let waitTimer;
 
 function MuiReactVirtualizedTable(props) {
-	const {classes, placeholder, ariaLabel} = props;
-	const [search, setSearch] = React.useState('');
 
-	const searchValue = () => {
-		console.log('click');
-		if (!search) return;
-		console.log(search);
+	const searchIp = props.search === 'ip';
+	const emptyRow = ['', '', '', '', '', ''];
+	const rowInPage = 200;
+
+	const {classes, placeholder, ariaLabel} = props;
+
+	const [search, setSearch] = useState('');
+	const [searchData, setSearchData] = useState(false);
+	const [tableData, setTableData] = useState({rowsCollection: {}, rowsCount: 0, firstColumnWidth: 54});
+
+	useEffect(() => {
+		getData(0);
+	}, []);
+
+	useEffect(() => {
+		if (searchData) {
+			setSearchData(false);
+			getData(0, true);
+		}
+	}, [searchData]);
+
+	const getData = (index, getNewCollection) => {
+		if (waitIndex !== -1) {
+			if (waitIndex !== index &&
+				indexInQueue !== index) {
+				indexInQueue = index;
+			}
+			return;
+		}
+
+		waitIndex = index;
+
+		const url = `http://localhost:5000/api/${(searchIp ? 'UserIp' : 'UserLocation')}/GetAll`;
+		const queryService = QueryService();
+		const queryData = {
+			filter: {
+				cityContains: search?.trim(),
+			},
+			withCount: true,
+			take: rowInPage,
+			skip: rowInPage * index
+		};
+
+		queryService.post(url, queryData).subscribe((data) => {
+			const newData = {...tableData, rowsCollection: {...tableData.rowsCollection}};
+			const items = data?.items ?? [];
+			if (items.length) {
+				const lastItem = items[items.length - 1];
+				if (lastItem && lastItem.id) {
+					if (lastItem.id > 9 && lastItem.id % 10 === 0 && index % rowInPage !== 0) {
+						const idColumnWidth = String(lastItem.id).length * 18;
+						if (newData.firstColumnWidth < idColumnWidth) {
+							newData.firstColumnWidth = idColumnWidth;
+						}
+					}
+				}
+			}
+
+			newData.rowsCount = data?.count ?? 0;
+			if (getNewCollection) {
+				newData.rowsCollection = {[index]: items};
+				gottenIndex = [];
+			} else {
+				newData.rowsCollection = {...newData.rowsCollection, [index]: items};
+			}
+
+			setTableData(newData);
+
+			gottenIndex.push(index);
+
+			if (indexInQueue !== -1 && indexInQueue !== index) {
+				gottenIndex.indexOf(indexInQueue) === -1 && getNext(indexInQueue);
+			}
+			waitIndex = -1;
+			indexInQueue = -1;
+		});
+	};
+
+	const getNext = (index) => {
+		waitTimer && clearTimeout(waitTimer)
+		waitTimer = setTimeout(() => {
+			getData(index);
+		}, 50);
+	};
+
+	const onSearch = () => {
+		getData(0, true);
+	};
+
+	const onClear = () => {
+		setSearch('');
+		setSearchData(true);
+	};
+
+	const getRow = (index) => {
+		const newIndex = index % rowInPage;
+		const rowIndex = (index - newIndex) / rowInPage;
+		if (tableData.rowsCollection[rowIndex]) {
+			return tableData.rowsCollection[rowIndex][newIndex];
+		} else {
+			getNext(rowIndex);
+			return [index, ...emptyRow];
+		}
 	};
 
 	return (
@@ -53,42 +141,44 @@ function MuiReactVirtualizedTable(props) {
 				ariaLabel={ariaLabel}
 				value={search}
 				onChange={(searchVal) => setSearch(searchVal)}
-				onSearch={() => searchValue(search)}
-				onClear={() => setSearch('')}
+				onSearch={() => onSearch(search)}
+				onClear={onClear}
 			/>
 			<Paper className={classes.tableContainer}>
 				<VirtualizedTable
-					rowCount={rows.length}
-					rowGetter={({index}) => rows[index]}
+					rowCount={tableData.rowsCount}
+					rowGetter={({index}) => getRow(index)}
 					columns={[
 						{
+							width: tableData.firstColumnWidth,
+							label: '#',
+							dataKey: 'id',
+							numeric: true,
+						},
+						{
 							width: 200,
-							label: 'Dessert',
-							dataKey: 'dessert',
+							label: 'Страна',
+							dataKey: 'country',
 						},
 						{
-							width: 120,
-							label: 'Calories\u00A0(g)',
-							dataKey: 'calories',
-							numeric: true,
+							width: 200,
+							label: 'Область, край',
+							dataKey: 'region',
 						},
 						{
-							width: 120,
-							label: 'Fat\u00A0(g)',
-							dataKey: 'fat',
-							numeric: true,
+							width: 200,
+							label: 'Адрес',
+							dataKey: 'postal',
 						},
 						{
-							width: 120,
-							label: 'Carbs\u00A0(g)',
-							dataKey: 'carbs',
-							numeric: true,
+							width: 200,
+							label: 'Город',
+							dataKey: 'city',
 						},
 						{
-							width: 120,
-							label: 'Protein\u00A0(g)',
-							dataKey: 'protein',
-							numeric: true,
+							width: 200,
+							label: 'Организация',
+							dataKey: 'organization',
 						},
 					]}
 				/>
