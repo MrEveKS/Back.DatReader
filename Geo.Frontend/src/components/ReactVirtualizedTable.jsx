@@ -7,6 +7,8 @@ import SearchBar from './SearchBar.jsx';
 
 import QueryService from '../services/QueryService';
 
+import {environment} from "../../environments/environment";
+
 const {setTimeout, clearTimeout} = window;
 
 const styles = (theme) => ({
@@ -60,7 +62,7 @@ function MuiReactVirtualizedTable(props) {
 
 		waitIndex = index;
 
-		const url = 'api/UserLocation/GetAll';
+		const url = environment.apiAllUrl;
 		const queryService = QueryService();
 		const queryData = {
 			filter: {

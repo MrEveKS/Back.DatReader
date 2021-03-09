@@ -6,6 +6,8 @@ import {withStyles} from "@material-ui/core/styles";
 import QueryService from "../services/QueryService";
 import SearchBar from "./SearchBar.jsx";
 
+import {environment} from "../../environments/environment";
+
 const styles = (theme) => ({
 	root: {
 		paddingTop: theme.mixins.toolbar.minHeight,
@@ -31,7 +33,7 @@ function MuiInformation(props) {
 	}, [searchData]);
 
 	const getData = () => {
-		const url = 'api/UserIp/GetUserLocation';
+		const url = environment.apiIpUrl;
 		const queryService = QueryService();
 		const queryData = {
 			filter: {
@@ -65,25 +67,25 @@ function MuiInformation(props) {
 				onClear={onClear}
 			/>
 			<Grid item xs={12} sm={6}>
-				Страна: {data.country}
+				Страна: {data?.country}
 			</Grid>
 			<Grid item xs={12} sm={6}>
-				Область: {data.region}
+				Область: {data?.region}
 			</Grid>
 			<Grid item xs={12} sm={6}>
-				Почтовый индекс: {data.postal}
+				Почтовый индекс: {data?.postal}
 			</Grid>
 			<Grid item xs={12} sm={6}>
-				Город: {data.city}
+				Город: {data?.city}
 			</Grid>
 			<Grid item xs={12} sm={6}>
-				Организация: {data.organization}
+				Организация: {data?.organization}
 			</Grid>
 			<Grid item xs={12} sm={6}>
-				Широта: {data.latitude}
+				Широта: {data?.latitude}
 			</Grid>
 			<Grid item xs={12} sm={6}>
-				Долгота: {data.longitude}
+				Долгота: {data?.longitude}
 			</Grid>
 		</Grid>
 	);
